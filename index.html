@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beating Heart</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 800px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, #E584A2, #AEA5F2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            background: linear-gradient(90deg, #E584A2, #AEA5F2);
+            color: #fff;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+
+        /* Slide navigation */
+        .slides {
+            display: none;
+        }
+
+        .slide {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav-buttons {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .nav-btn {
+            padding: 0.75rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .progress {
+            margin-top: 1rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Landing / Start -->
+    <div class="container" id="landing">
+        <h1>Beating Heart</h1>
+        <p>Your interactive presentation starts here</p>
+        <button class="btn" onclick="startPresentation()">Start</button>
+    </div>
+
+    <!-- Slides Container -->
+    <div class="container slides" id="presentation">
+        <div class="slide active" data-slide="1">
+            <h1>Slide 1</h1>
+            <p>This is your first slide. Edit the content to tell your story.</p>
+        </div>
+
+        <div class="slide" data-slide="2">
+            <h1>Slide 2</h1>
+            <p>Add more slides by copying the slide div structure.</p>
+        </div>
+
+        <div class="slide" data-slide="3">
+            <h1>Slide 3</h1>
+            <p>Use CSS and JavaScript to add interactivity.</p>
+        </div>
+
+        <div class="nav-buttons">
+            <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
+            <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next →</button>
+        </div>
+        <div class="progress">
+            <span id="currentSlide">1</span> / <span id="totalSlides">3</span>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        function startPresentation() {
+            document.getElementById('landing').style.display = 'none';
+            document.getElementById('presentation').style.display = 'block';
+            updateSlide();
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            if (currentSlide < 1) currentSlide = 1;
+            if (currentSlide > totalSlides) currentSlide = totalSlides;
+            updateSlide();
+        }
+
+        function updateSlide() {
+            slides.forEach(slide => slide.classList.remove('active'));
+            document.querySelector(`[data-slide="${currentSlide}"]`).classList.add('active');
+            document.getElementById('currentSlide').textContent = currentSlide;
+
+            document.getElementById('prevBtn').disabled = currentSlide === 1;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (document.getElementById('presentation').style.display === 'block') {
+                if (e.key === 'ArrowRight' || e.key === ' ') changeSlide(1);
+                if (e.key === 'ArrowLeft') changeSlide(-1);
+            }
+        });
+    </script>
+</body>
+</html>
