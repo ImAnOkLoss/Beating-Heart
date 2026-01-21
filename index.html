@@ -99,7 +99,7 @@
             }
         }
 
-        /* Heart with gradient - simple mask approach */
+        /* Heart with gradient - using alpha mask */
         .heart-gradient {
             width: 100%;
             height: 100%;
@@ -112,6 +112,8 @@
             mask-repeat: no-repeat;
             -webkit-mask-position: center;
             mask-position: center;
+            -webkit-mask-mode: alpha;
+            mask-mode: alpha;
         }
 
         /* Main Title */
