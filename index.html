@@ -59,15 +59,90 @@
             width: 100%;
         }
 
+        /* Holding Page (Heart) */
+        .holding-page {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            cursor: pointer;
+        }
+
+        .heart-container {
+            width: 150px;
+            height: 150px;
+            animation: heartPulse 1.5s ease-in-out infinite;
+            transition: transform 0.3s, filter 0.3s;
+        }
+
+        .heart-container:hover {
+            animation: none;
+            transform: scale(1.2);
+            filter: brightness(1.2);
+        }
+
+        @keyframes heartPulse {
+            0%, 100% {
+                transform: scale(1);
+                filter: brightness(1);
+            }
+            50% {
+                transform: scale(1.2);
+                filter: brightness(1.2);
+            }
+        }
+
+        .heart-container svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Decorative Elements */
+        .decoration-tree,
+        .decoration-disco {
+            position: fixed;
+            top: 80px;
+            width: 75px;
+            height: 75px;
+            opacity: 0.5;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .decoration-tree {
+            left: 5%;
+        }
+
+        .decoration-disco {
+            right: 5%;
+        }
+
+        .decoration-tree svg,
+        .decoration-disco svg {
+            width: 100%;
+            height: 100%;
+        }
+
         /* Main Title */
-        .main-title {
-            font-size: clamp(2.5rem, 7vw, 4rem);
+        .title-header {
             text-align: center;
             margin-bottom: 1.5rem;
+        }
+
+        .main-title {
+            font-size: clamp(2.5rem, 7vw, 4rem);
+            display: inline;
             background: linear-gradient(90deg, var(--pink), var(--purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+        }
+
+        .date-display {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            color: var(--green);
+            margin-left: 1rem;
+            display: inline;
         }
 
         h2 {
@@ -88,13 +163,20 @@
             color: rgba(255, 255, 255, 0.8);
         }
 
+        /* Twin Boxes Container */
+        .twin-boxes {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
         /* Commitment Box with Neon Animation */
         .commitment-box {
             background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(229, 132, 162, 0.3);
             border-radius: 16px;
             padding: 1.25rem 1.5rem;
-            margin-bottom: 1.5rem;
             text-align: center;
             cursor: pointer;
             position: relative;
@@ -130,34 +212,35 @@
             100% { background-position: 200% 50%; opacity: 0; }
         }
 
+        .commitment-box h3 {
+            margin: 0 0 0.75rem;
+            color: var(--pink);
+            font-size: 1.1rem;
+        }
+
         .commitment-box p {
             margin: 0.3rem 0;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
-        .commitment-box strong {
-            color: var(--pink);
+        /* Objectives Box */
+        .objectives-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(174, 165, 242, 0.3);
+            border-radius: 16px;
+            padding: 1.25rem 1.5rem;
+            text-align: center;
         }
 
-        /* Objectives List */
-        .objectives-list {
-            list-style: none;
-            margin: 0.75rem 0;
+        .objectives-box h3 {
+            margin: 0 0 0.75rem;
+            color: var(--purple);
+            font-size: 1.1rem;
         }
 
-        .objectives-list li {
-            padding: 0.5rem 0;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-
-        .objectives-list li::before {
-            content: '◆';
-            position: absolute;
-            left: 0;
-            color: var(--pink);
-            font-size: 0.7rem;
-            top: 0.65rem;
+        .objectives-box p {
+            margin: 0.3rem 0;
+            font-size: 0.9rem;
         }
 
         /* Info Grid */
@@ -173,6 +256,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             padding: 1rem;
+            text-align: center;
         }
 
         .info-card h3 {
@@ -180,32 +264,22 @@
             color: var(--pink);
         }
 
-        /* Key Numbers */
-        .key-numbers {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin: 1.5rem 0;
-            flex-wrap: wrap;
+        .info-card p {
+            margin: 0.4rem 0;
+            font-size: 0.9rem;
         }
 
-        .key-number {
-            background: rgba(74, 255, 179, 0.1);
-            border: 2px solid var(--green);
-            border-radius: 12px;
-            padding: 1rem 2rem;
-            text-align: center;
+        /* Scope List */
+        .scope-list {
+            list-style: none;
+            margin: 0.5rem 0;
+            text-align: left;
+            display: inline-block;
         }
 
-        .key-number .value {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--green);
-        }
-
-        .key-number .label {
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.6);
+        .scope-list li {
+            padding: 0.3rem 0;
+            font-size: 0.9rem;
         }
 
         /* Editable Input */
@@ -225,34 +299,20 @@
             border-bottom-style: solid;
         }
 
-        /* Scope List */
-        .scope-list {
-            list-style: none;
-            margin: 0.5rem 0;
-        }
-
-        .scope-list li {
-            padding: 0.4rem 0;
-            padding-left: 1.25rem;
-            position: relative;
-            font-size: 0.95rem;
-        }
-
-        .scope-list li::before {
-            content: '•';
-            position: absolute;
-            left: 0;
-            color: var(--purple);
-        }
-
         /* Inspiration Page */
+        .inspiration-slide {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 80px);
+        }
+
         .inspiration-text {
             font-size: clamp(1.3rem, 3vw, 1.8rem);
             text-align: center;
             font-style: italic;
             color: rgba(255,255,255,0.85);
             max-width: 700px;
-            margin: auto;
             line-height: 1.8;
             padding: 3rem 2rem;
         }
@@ -268,7 +328,7 @@
         /* Numbers Page */
         .budget-header {
             display: flex;
-            gap: 2rem;
+            gap: 1.5rem;
             justify-content: center;
             flex-wrap: wrap;
             margin: 1.5rem 0;
@@ -278,15 +338,29 @@
             background: rgba(255, 255, 255, 0.05);
             border: 2px solid var(--green);
             border-radius: 16px;
-            padding: 1.5rem 2rem;
+            padding: 1.25rem 1.5rem;
             text-align: center;
-            min-width: 180px;
+            min-width: 160px;
+        }
+
+        .budget-box.contingency {
+            border-color: var(--yellow);
+        }
+
+        .budget-box.contingency .value {
+            color: var(--yellow);
         }
 
         .budget-box .label {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: rgba(255,255,255,0.6);
             margin-bottom: 0.5rem;
+        }
+
+        .budget-box .value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--green);
         }
 
         /* Ticket Table */
@@ -508,6 +582,10 @@
             padding-bottom: 12px;
         }
 
+        .progress-bar.hidden {
+            display: none;
+        }
+
         .progress-dots {
             display: flex;
             gap: calc((90vw - 125px) / 4);
@@ -550,6 +628,10 @@
             pointer-events: none;
         }
 
+        .disco-ball-container.hidden {
+            display: none;
+        }
+
         .disco-ball-container svg {
             width: 25px;
             height: 25px;
@@ -576,6 +658,10 @@
                 padding: 1.5rem 1rem;
             }
 
+            .twin-boxes {
+                grid-template-columns: 1fr;
+            }
+
             .info-grid {
                 grid-template-columns: 1fr;
             }
@@ -589,56 +675,140 @@
                 align-items: center;
             }
 
-            .key-numbers {
-                flex-direction: column;
-                align-items: center;
-            }
-
             .progress-dots {
                 gap: calc((90vw - 125px) / 4);
+            }
+
+            .title-header .date-display {
+                display: block;
+                margin-left: 0;
+                margin-top: 0.5rem;
+            }
+
+            .decoration-tree,
+            .decoration-disco {
+                width: 50px;
+                height: 50px;
+                top: 60px;
             }
         }
     </style>
 </head>
 <body>
     <div class="presentation" id="presentation">
-        <!-- Slide 1: Overview -->
-        <div class="slide active" data-slide="1">
-            <div class="slide-content">
-                <h1 class="main-title">B6: Beating Heart</h1>
+        <!-- Decorative Elements (visible on all slides except holding page) -->
+        <div class="decoration-tree" id="decorTree">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="treeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#E584A2"/>
+                        <stop offset="100%" stop-color="#AEA5F2"/>
+                    </linearGradient>
+                </defs>
+                <!-- Cork Oak Tree (Sobreiro) -->
+                <path d="M50 95 L50 60" stroke="url(#treeGradient)" stroke-width="6" fill="none" stroke-linecap="round"/>
+                <path d="M50 70 L35 55" stroke="url(#treeGradient)" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <path d="M50 65 L65 50" stroke="url(#treeGradient)" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <!-- Canopy -->
+                <ellipse cx="50" cy="35" rx="35" ry="28" fill="none" stroke="url(#treeGradient)" stroke-width="2"/>
+                <ellipse cx="35" cy="40" rx="18" ry="15" fill="none" stroke="url(#treeGradient)" stroke-width="1.5" opacity="0.7"/>
+                <ellipse cx="65" cy="40" rx="18" ry="15" fill="none" stroke="url(#treeGradient)" stroke-width="1.5" opacity="0.7"/>
+                <ellipse cx="50" cy="25" rx="20" ry="18" fill="none" stroke="url(#treeGradient)" stroke-width="1.5" opacity="0.7"/>
+            </svg>
+        </div>
 
-                <div class="commitment-box" onclick="animateBox(this)">
-                    <strong>Our Commitment</strong>
-                    <p>Protect and nourish the collective fire.</p>
-                    <p>Welcome new team and community members.</p>
-                    <p>Grow at the pace of what can be sustainable.</p>
-                    <p>Stay connected to the land and each other.</p>
+        <div class="decoration-disco" id="decorDisco">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="decorBallGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#E584A2"/>
+                        <stop offset="100%" stop-color="#AEA5F2"/>
+                    </linearGradient>
+                </defs>
+                <!-- Disco Ball with mirror facets -->
+                <circle cx="50" cy="50" r="40" fill="none" stroke="url(#decorBallGradient)" stroke-width="2"/>
+                <!-- Horizontal bands -->
+                <ellipse cx="50" cy="30" rx="38" ry="8" fill="none" stroke="url(#decorBallGradient)" stroke-width="1" opacity="0.6"/>
+                <ellipse cx="50" cy="50" rx="40" ry="10" fill="none" stroke="url(#decorBallGradient)" stroke-width="1" opacity="0.6"/>
+                <ellipse cx="50" cy="70" rx="38" ry="8" fill="none" stroke="url(#decorBallGradient)" stroke-width="1" opacity="0.6"/>
+                <!-- Vertical lines -->
+                <path d="M50 10 L50 90" stroke="url(#decorBallGradient)" stroke-width="1" opacity="0.6"/>
+                <path d="M25 15 Q10 50 25 85" stroke="url(#decorBallGradient)" stroke-width="1" opacity="0.6" fill="none"/>
+                <path d="M75 15 Q90 50 75 85" stroke="url(#decorBallGradient)" stroke-width="1" opacity="0.6" fill="none"/>
+                <!-- Mirror tiles -->
+                <rect x="42" y="22" width="6" height="5" rx="1" fill="url(#decorBallGradient)" opacity="0.4"/>
+                <rect x="55" y="25" width="6" height="5" rx="1" fill="url(#decorBallGradient)" opacity="0.4"/>
+                <rect x="30" y="35" width="6" height="5" rx="1" fill="url(#decorBallGradient)" opacity="0.4"/>
+                <rect x="60" y="45" width="6" height="5" rx="1" fill="url(#decorBallGradient)" opacity="0.4"/>
+                <rect x="35" y="55" width="6" height="5" rx="1" fill="url(#decorBallGradient)" opacity="0.4"/>
+                <rect x="52" y="62" width="6" height="5" rx="1" fill="url(#decorBallGradient)" opacity="0.4"/>
+                <rect x="40" y="72" width="6" height="5" rx="1" fill="url(#decorBallGradient)" opacity="0.4"/>
+                <!-- Highlight -->
+                <circle cx="35" cy="35" r="5" fill="rgba(255,255,255,0.3)"/>
+            </svg>
+        </div>
+
+        <!-- Slide 0: Holding Page (Heart) -->
+        <div class="slide holding-page active" data-slide="0" id="holdingPage" onclick="leaveHoldingPage()">
+            <div class="heart-container">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#E584A2"/>
+                            <stop offset="100%" stop-color="#AEA5F2"/>
+                        </linearGradient>
+                    </defs>
+                    <path d="M50 88 C20 60 5 40 5 28 C5 12 18 5 32 5 C42 5 50 15 50 15 C50 15 58 5 68 5 C82 5 95 12 95 28 C95 40 80 60 50 88 Z"
+                          fill="none"
+                          stroke="url(#heartGradient)"
+                          stroke-width="3"/>
+                    <!-- Inner heart lines for depth -->
+                    <path d="M50 78 C25 55 15 40 15 30 C15 18 25 12 35 12 C43 12 50 20 50 20 C50 20 57 12 65 12 C75 12 85 18 85 30 C85 40 75 55 50 78 Z"
+                          fill="none"
+                          stroke="url(#heartGradient)"
+                          stroke-width="1.5"
+                          opacity="0.5"/>
+                    <!-- Highlight -->
+                    <circle cx="30" cy="28" r="6" fill="rgba(255,255,255,0.25)"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Slide 1: Overview -->
+        <div class="slide" data-slide="1">
+            <div class="slide-content">
+                <div class="title-header">
+                    <h1 class="main-title">B6: Beating Heart</h1>
+                    <span class="date-display">Fri 29 - Sun 31 May, 2026</span>
                 </div>
 
-                <h2>Core Objectives</h2>
-                <ul class="objectives-list">
-                    <li>Rebuild core crew & reignite community</li>
-                    <li>Regenerative 2026 for an Expansive 2027 edition</li>
-                    <li>Maintain the 12k EUR or more financial buffer we built from B5 hard work</li>
-                    <li>Create, Collaborate and Enjoy - an expression of an event we can all be proud to be a part of</li>
-                </ul>
+                <div class="twin-boxes">
+                    <div class="commitment-box" onclick="animateBox(this)">
+                        <h3>Our Commitment</h3>
+                        <p>Protect and nourish the collective fire</p>
+                        <p>Welcome new team and community members</p>
+                        <p>Grow at the pace of what can be sustainable</p>
+                        <p>Stay connected to the land and each other</p>
+                    </div>
 
-                <div class="key-numbers">
-                    <div class="key-number">
-                        <div class="value">Fri 29 - Sun 31</div>
-                        <div class="label">May 2026</div>
+                    <div class="objectives-box">
+                        <h3>Core Objectives</h3>
+                        <p>Rebuild core crew & reignite community</p>
+                        <p>Regenerative 2026 for an Expansive 2027 edition</p>
+                        <p>Maintain the 12k EUR financial buffer from B5</p>
+                        <p>Create, Collaborate and Enjoy</p>
                     </div>
                 </div>
 
                 <div class="info-grid">
                     <div class="info-card">
-                        <h3>Leadership</h3>
+                        <h3>Core</h3>
                         <p><strong>Leads:</strong> Joana & Jica</p>
                         <p><strong>Core Crew:</strong> Afonso, Ben, Jay, Jo, Ksenia, Lukas, Nick, Si</p>
                         <p><strong>Onboarding:</strong> 3-4 key new core crew members</p>
                     </div>
                     <div class="info-card">
-                        <h3>Topline Scope</h3>
+                        <h3>Scope</h3>
                         <ul class="scope-list">
                             <li>1 main stage (Valley)</li>
                             <li>1 chill out/tea bar/workshop space (Canopy/Bar)</li>
@@ -649,23 +819,12 @@
                         </ul>
                     </div>
                 </div>
-
-                <div class="key-numbers">
-                    <div class="key-number">
-                        <div class="value" id="paxDisplay1">200</div>
-                        <div class="label">pax</div>
-                    </div>
-                    <div class="key-number">
-                        <div class="value">€<span id="budgetDisplay1">22,000</span></div>
-                        <div class="label">Budget</div>
-                    </div>
-                </div>
             </div>
         </div>
 
         <!-- Slide 2: Inspiration -->
         <div class="slide" data-slide="2">
-            <div class="slide-content" style="display: flex; align-items: center; justify-content: center; min-height: 60vh;">
+            <div class="slide-content inspiration-slide">
                 <p class="inspiration-text">
                     Stop. Think of <span>one thing</span> you envision creating for this edition, throw it in the mixer. Beginnings has been about <span>making creative dreams come true</span>.
                 </p>
@@ -675,7 +834,7 @@
         <!-- Slide 3: Numbers -->
         <div class="slide" data-slide="3">
             <div class="slide-content">
-                <h1 class="main-title" style="font-size: 2.5rem;">Numbers</h1>
+                <h1 class="main-title" style="font-size: 2.5rem; display: block; text-align: center;">Numbers</h1>
 
                 <div class="budget-header">
                     <div class="budget-box">
@@ -687,8 +846,12 @@
                         <div><input type="text" class="editable-number" id="paxInput" value="200" oninput="updateCalculations()"></div>
                     </div>
                     <div class="budget-box">
-                        <div class="label">Target Revenue</div>
-                        <div style="font-size: 2rem; font-weight: bold; color: var(--green);">€<span id="revenueDisplay">22,000</span></div>
+                        <div class="label">Target Revenue (90%)</div>
+                        <div class="value">€<span id="revenueDisplay">19,800</span></div>
+                    </div>
+                    <div class="budget-box contingency">
+                        <div class="label">Contingency (10%)</div>
+                        <div class="value">€<span id="contingencyDisplay">2,200</span></div>
                     </div>
                 </div>
 
@@ -713,19 +876,19 @@
                             <td class="category">Key Contributors</td>
                             <td class="allocation"><span id="keyContrib">25</span> ppl</td>
                             <td class="allocation"><span id="keyContribPct">12.5</span>%</td>
-                            <td class="price">€<span id="keyContribPrice">85</span></td>
+                            <td class="price">€<span id="keyContribPrice">77</span></td>
                         </tr>
                         <tr>
                             <td class="category">Subsidised</td>
                             <td class="allocation"><span id="subsidised">15</span> ppl</td>
                             <td class="allocation"><span id="subsidisedPct">7.5</span>%</td>
-                            <td class="price">€<span id="subsidisedPrice">113</span></td>
+                            <td class="price">€<span id="subsidisedPrice">102</span></td>
                         </tr>
                         <tr>
                             <td class="category">Full Contribution</td>
                             <td class="allocation"><span id="fullContrib">145</span> ppl</td>
                             <td class="allocation"><span id="fullContribPct">72.5</span>%</td>
-                            <td class="price">€<span id="fullPrice">170</span></td>
+                            <td class="price">€<span id="fullPrice">153</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -741,18 +904,107 @@
         <!-- Slide 4: Bubble Matrix -->
         <div class="slide" data-slide="4">
             <div class="slide-content">
-                <h1 class="main-title" style="font-size: 2.5rem;">Bubble Matrix</h1>
+                <h1 class="main-title" style="font-size: 2.5rem; display: block; text-align: center;">Bubble Matrix</h1>
+                <p style="text-align: center; margin-bottom: 1rem; color: rgba(255,255,255,0.6); font-size: 0.9rem;">Budget allocations based on 90% target revenue (excluding contingency)</p>
 
                 <div class="team-grid">
+                    <div class="bubble critical">
+                        <span class="bubble-status">✗</span>
+                        <div class="bubble-info">
+                            <div class="bubble-name">Food</div>
+                            <div class="bubble-lead" style="color: var(--red);">NO LEAD • Lukas, Nick</div>
+                        </div>
+                        <div class="bubble-budget">
+                            <div class="percent">15%</div>
+                            <div class="amount">€<span class="bubble-amt" data-pct="15">2,970</span></div>
+                        </div>
+                    </div>
                     <div class="bubble ok">
                         <span class="bubble-status">✓</span>
                         <div class="bubble-info">
-                            <div class="bubble-name">Finance</div>
-                            <div class="bubble-lead">Lead: Lukas • Jay</div>
+                            <div class="bubble-name">Bar</div>
+                            <div class="bubble-lead">Lead: Jay • Jica</div>
                         </div>
                         <div class="bubble-budget">
-                            <div class="percent">3%</div>
-                            <div class="amount">€<span class="bubble-amt" data-pct="3">660</span></div>
+                            <div class="percent">15%</div>
+                            <div class="amount">€<span class="bubble-amt" data-pct="15">2,970</span></div>
+                        </div>
+                    </div>
+                    <div class="bubble ok">
+                        <span class="bubble-status">✓</span>
+                        <div class="bubble-info">
+                            <div class="bubble-name">Tech</div>
+                            <div class="bubble-lead">Lead: Jo • Si, Jica</div>
+                        </div>
+                        <div class="bubble-budget">
+                            <div class="percent">12%</div>
+                            <div class="amount">€<span class="bubble-amt" data-pct="12">2,376</span></div>
+                        </div>
+                    </div>
+                    <div class="bubble needs-hands">
+                        <span class="bubble-status">⚠</span>
+                        <div class="bubble-info">
+                            <div class="bubble-name">Site</div>
+                            <div class="bubble-lead">Lead: Afonso • Si</div>
+                        </div>
+                        <div class="bubble-budget">
+                            <div class="percent">12%</div>
+                            <div class="amount">€<span class="bubble-amt" data-pct="12">2,376</span></div>
+                        </div>
+                    </div>
+                    <div class="bubble ok">
+                        <span class="bubble-status">✓</span>
+                        <div class="bubble-info">
+                            <div class="bubble-name">Structures</div>
+                            <div class="bubble-lead">Lead: Si • Ben</div>
+                        </div>
+                        <div class="bubble-budget">
+                            <div class="percent">12%</div>
+                            <div class="amount">€<span class="bubble-amt" data-pct="12">2,376</span></div>
+                        </div>
+                    </div>
+                    <div class="bubble critical">
+                        <span class="bubble-status">✗</span>
+                        <div class="bubble-info">
+                            <div class="bubble-name">Visual Arts</div>
+                            <div class="bubble-lead" style="color: var(--red);">NO LEAD • Jica</div>
+                        </div>
+                        <div class="bubble-budget">
+                            <div class="percent">10%</div>
+                            <div class="amount">€<span class="bubble-amt" data-pct="10">1,980</span></div>
+                        </div>
+                    </div>
+                    <div class="bubble ok">
+                        <span class="bubble-status">✓</span>
+                        <div class="bubble-info">
+                            <div class="bubble-name">Programming</div>
+                            <div class="bubble-lead">Lead: Jo • Lukas, Nick</div>
+                        </div>
+                        <div class="bubble-budget">
+                            <div class="percent">7%</div>
+                            <div class="amount">€<span class="bubble-amt" data-pct="7">1,386</span></div>
+                        </div>
+                    </div>
+                    <div class="bubble ok">
+                        <span class="bubble-status">✓</span>
+                        <div class="bubble-info">
+                            <div class="bubble-name">Experiences</div>
+                            <div class="bubble-lead">Lead: Nick • Lukas, Jay</div>
+                        </div>
+                        <div class="bubble-budget">
+                            <div class="percent">6%</div>
+                            <div class="amount">€<span class="bubble-amt" data-pct="6">1,188</span></div>
+                        </div>
+                    </div>
+                    <div class="bubble needs-hands">
+                        <span class="bubble-status">⚠</span>
+                        <div class="bubble-info">
+                            <div class="bubble-name">Onsite Ops</div>
+                            <div class="bubble-lead">Lead: Joana • Jica</div>
+                        </div>
+                        <div class="bubble-budget">
+                            <div class="percent">5%</div>
+                            <div class="amount">€<span class="bubble-amt" data-pct="5">990</span></div>
                         </div>
                     </div>
                     <div class="bubble ok">
@@ -763,62 +1015,7 @@
                         </div>
                         <div class="bubble-budget">
                             <div class="percent">2%</div>
-                            <div class="amount">€<span class="bubble-amt" data-pct="2">440</span></div>
-                        </div>
-                    </div>
-                    <div class="bubble ok">
-                        <span class="bubble-status">✓</span>
-                        <div class="bubble-info">
-                            <div class="bubble-name">Programming</div>
-                            <div class="bubble-lead">Lead: Jo • Lukas, Nick</div>
-                        </div>
-                        <div class="bubble-budget">
-                            <div class="percent">8%</div>
-                            <div class="amount">€<span class="bubble-amt" data-pct="8">1,760</span></div>
-                        </div>
-                    </div>
-                    <div class="bubble ok">
-                        <span class="bubble-status">✓</span>
-                        <div class="bubble-info">
-                            <div class="bubble-name">Bar</div>
-                            <div class="bubble-lead">Lead: Jay • Jica</div>
-                        </div>
-                        <div class="bubble-budget">
-                            <div class="percent">12%</div>
-                            <div class="amount">€<span class="bubble-amt" data-pct="12">2,640</span></div>
-                        </div>
-                    </div>
-                    <div class="bubble ok">
-                        <span class="bubble-status">✓</span>
-                        <div class="bubble-info">
-                            <div class="bubble-name">Structures</div>
-                            <div class="bubble-lead">Lead: Si • Ben</div>
-                        </div>
-                        <div class="bubble-budget">
-                            <div class="percent">15%</div>
-                            <div class="amount">€<span class="bubble-amt" data-pct="15">3,300</span></div>
-                        </div>
-                    </div>
-                    <div class="bubble ok">
-                        <span class="bubble-status">✓</span>
-                        <div class="bubble-info">
-                            <div class="bubble-name">Tech</div>
-                            <div class="bubble-lead">Lead: Jo • Si, Jica</div>
-                        </div>
-                        <div class="bubble-budget">
-                            <div class="percent">18%</div>
-                            <div class="amount">€<span class="bubble-amt" data-pct="18">3,960</span></div>
-                        </div>
-                    </div>
-                    <div class="bubble ok">
-                        <span class="bubble-status">✓</span>
-                        <div class="bubble-info">
-                            <div class="bubble-name">Experiences</div>
-                            <div class="bubble-lead">Lead: Nick • Lukas, Jay</div>
-                        </div>
-                        <div class="bubble-budget">
-                            <div class="percent">5%</div>
-                            <div class="amount">€<span class="bubble-amt" data-pct="5">1,100</span></div>
+                            <div class="amount">€<span class="bubble-amt" data-pct="2">396</span></div>
                         </div>
                     </div>
                     <div class="bubble needs-hands">
@@ -828,41 +1025,8 @@
                             <div class="bubble-lead">Lead: Joana • Afonso</div>
                         </div>
                         <div class="bubble-budget">
-                            <div class="percent">5%</div>
-                            <div class="amount">€<span class="bubble-amt" data-pct="5">1,100</span></div>
-                        </div>
-                    </div>
-                    <div class="bubble needs-hands">
-                        <span class="bubble-status">⚠</span>
-                        <div class="bubble-info">
-                            <div class="bubble-name">Site</div>
-                            <div class="bubble-lead">Lead: Afonso • Si</div>
-                        </div>
-                        <div class="bubble-budget">
-                            <div class="percent">10%</div>
-                            <div class="amount">€<span class="bubble-amt" data-pct="10">2,200</span></div>
-                        </div>
-                    </div>
-                    <div class="bubble needs-hands">
-                        <span class="bubble-status">⚠</span>
-                        <div class="bubble-info">
-                            <div class="bubble-name">Onsite Ops</div>
-                            <div class="bubble-lead">Lead: Joana • Jica</div>
-                        </div>
-                        <div class="bubble-budget">
-                            <div class="percent">8%</div>
-                            <div class="amount">€<span class="bubble-amt" data-pct="8">1,760</span></div>
-                        </div>
-                    </div>
-                    <div class="bubble critical">
-                        <span class="bubble-status">✗</span>
-                        <div class="bubble-info">
-                            <div class="bubble-name">Food</div>
-                            <div class="bubble-lead" style="color: var(--red);">NO LEAD • Lukas, Nick</div>
-                        </div>
-                        <div class="bubble-budget">
-                            <div class="percent">10%</div>
-                            <div class="amount">€<span class="bubble-amt" data-pct="10">2,200</span></div>
+                            <div class="percent">2%</div>
+                            <div class="amount">€<span class="bubble-amt" data-pct="2">396</span></div>
                         </div>
                     </div>
                     <div class="bubble needs-hands">
@@ -873,18 +1037,7 @@
                         </div>
                         <div class="bubble-budget">
                             <div class="percent">2%</div>
-                            <div class="amount">€<span class="bubble-amt" data-pct="2">440</span></div>
-                        </div>
-                    </div>
-                    <div class="bubble critical">
-                        <span class="bubble-status">✗</span>
-                        <div class="bubble-info">
-                            <div class="bubble-name">Visual Arts</div>
-                            <div class="bubble-lead" style="color: var(--red);">NO LEAD • Jica</div>
-                        </div>
-                        <div class="bubble-budget">
-                            <div class="percent">2%</div>
-                            <div class="amount">€<span class="bubble-amt" data-pct="2">440</span></div>
+                            <div class="amount">€<span class="bubble-amt" data-pct="2">396</span></div>
                         </div>
                     </div>
                 </div>
@@ -900,7 +1053,7 @@
         <!-- Slide 5: Next Steps -->
         <div class="slide" data-slide="5">
             <div class="slide-content">
-                <h1 class="main-title" style="font-size: 2.5rem;">Next Steps</h1>
+                <h1 class="main-title" style="font-size: 2.5rem; display: block; text-align: center;">Next Steps</h1>
 
                 <div class="invitation-box">
                     <h2>Your Turn</h2>
@@ -948,7 +1101,7 @@
         </div>
 
         <!-- Progress Bar with Disco Ball -->
-        <div class="progress-bar">
+        <div class="progress-bar hidden" id="progressBar">
             <div class="progress-dots">
                 <span class="progress-dot active" data-dot="1"></span>
                 <span class="progress-dot" data-dot="2"></span>
@@ -959,7 +1112,7 @@
         </div>
 
         <!-- Disco Ball -->
-        <div class="disco-ball-container" id="discoBall">
+        <div class="disco-ball-container hidden" id="discoBall">
             <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <linearGradient id="ballGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -967,25 +1120,34 @@
                         <stop offset="100%" stop-color="#AEA5F2"/>
                     </linearGradient>
                 </defs>
-                <!-- Outline disco ball -->
+                <!-- Disco Ball with mirror facets -->
                 <circle cx="25" cy="25" r="22" fill="none" stroke="url(#ballGradient)" stroke-width="2" class="ball-glow"/>
-                <!-- Facet lines -->
-                <g stroke="url(#ballGradient)" stroke-width="0.8" fill="none" opacity="0.6" class="ball-glow">
-                    <ellipse cx="25" cy="25" rx="22" ry="8"/>
-                    <ellipse cx="25" cy="25" rx="22" ry="8" transform="rotate(60 25 25)"/>
-                    <ellipse cx="25" cy="25" rx="22" ry="8" transform="rotate(120 25 25)"/>
-                    <line x1="25" y1="3" x2="25" y2="47"/>
-                    <line x1="3" y1="25" x2="47" y2="25"/>
-                </g>
-                <!-- Center highlight -->
-                <circle cx="18" cy="18" r="4" fill="rgba(255,255,255,0.3)"/>
+                <!-- Horizontal bands -->
+                <ellipse cx="25" cy="15" rx="20" ry="4" fill="none" stroke="url(#ballGradient)" stroke-width="0.8" opacity="0.6" class="ball-glow"/>
+                <ellipse cx="25" cy="25" rx="22" ry="5" fill="none" stroke="url(#ballGradient)" stroke-width="0.8" opacity="0.6" class="ball-glow"/>
+                <ellipse cx="25" cy="35" rx="20" ry="4" fill="none" stroke="url(#ballGradient)" stroke-width="0.8" opacity="0.6" class="ball-glow"/>
+                <!-- Vertical lines -->
+                <path d="M25 3 L25 47" stroke="url(#ballGradient)" stroke-width="0.8" opacity="0.6" class="ball-glow"/>
+                <path d="M12 5 Q3 25 12 45" stroke="url(#ballGradient)" stroke-width="0.8" opacity="0.6" fill="none" class="ball-glow"/>
+                <path d="M38 5 Q47 25 38 45" stroke="url(#ballGradient)" stroke-width="0.8" opacity="0.6" fill="none" class="ball-glow"/>
+                <!-- Mirror tiles -->
+                <rect x="20" y="10" width="4" height="3" rx="0.5" fill="url(#ballGradient)" opacity="0.4"/>
+                <rect x="30" y="12" width="4" height="3" rx="0.5" fill="url(#ballGradient)" opacity="0.4"/>
+                <rect x="14" y="20" width="4" height="3" rx="0.5" fill="url(#ballGradient)" opacity="0.4"/>
+                <rect x="32" y="23" width="4" height="3" rx="0.5" fill="url(#ballGradient)" opacity="0.4"/>
+                <rect x="18" y="30" width="4" height="3" rx="0.5" fill="url(#ballGradient)" opacity="0.4"/>
+                <rect x="28" y="33" width="4" height="3" rx="0.5" fill="url(#ballGradient)" opacity="0.4"/>
+                <rect x="22" y="38" width="4" height="3" rx="0.5" fill="url(#ballGradient)" opacity="0.4"/>
+                <!-- Highlight -->
+                <circle cx="18" cy="18" r="3" fill="rgba(255,255,255,0.3)"/>
             </svg>
         </div>
     </div>
 
     <script>
-        let currentSlide = 1;
+        let currentSlide = 0; // Start at holding page
         const totalSlides = 5;
+        let isOnHoldingPage = true;
 
         // Ticket allocation ratios (percentages of total pax)
         const ALLOCATION = {
@@ -1013,9 +1175,13 @@
             const budget = parseNumber(document.getElementById('budgetInput').value);
             const pax = parseNumber(document.getElementById('paxInput').value);
 
-            // Update page 1 displays
-            document.getElementById('budgetDisplay1').textContent = formatNumber(budget);
-            document.getElementById('paxDisplay1').textContent = formatNumber(pax);
+            // Calculate 90% target revenue and 10% contingency
+            const targetRevenue = budget * 0.9;
+            const contingency = budget * 0.1;
+
+            // Update displays
+            document.getElementById('revenueDisplay').textContent = formatNumber(targetRevenue);
+            document.getElementById('contingencyDisplay').textContent = formatNumber(contingency);
 
             // Calculate ticket allocations
             const coreCrew = Math.round(pax * ALLOCATION.coreCrew);
@@ -1023,12 +1189,12 @@
             const subsidised = Math.round(pax * ALLOCATION.subsidised);
             const fullContrib = pax - coreCrew - keyContrib - subsidised;
 
-            // Calculate full price to meet budget
+            // Calculate full price to meet 90% target revenue
             // Revenue = keyContrib * fullPrice * 0.5 + subsidised * fullPrice * 0.666 + fullContrib * fullPrice
             const revenueCoeff = (keyContrib * PRICE_RATIOS.keyContrib) +
                                  (subsidised * PRICE_RATIOS.subsidised) +
                                  fullContrib;
-            const fullPrice = budget / revenueCoeff;
+            const fullPrice = targetRevenue / revenueCoeff;
 
             // Update ticket table
             document.getElementById('coreCrew').textContent = coreCrew;
@@ -1045,16 +1211,36 @@
             document.getElementById('subsidisedPrice').textContent = Math.round(fullPrice * PRICE_RATIOS.subsidised);
             document.getElementById('fullPrice').textContent = Math.round(fullPrice);
 
-            document.getElementById('revenueDisplay').textContent = formatNumber(budget);
-
-            // Update bubble budgets
+            // Update bubble budgets (based on 90% target revenue)
             document.querySelectorAll('.bubble-amt').forEach(el => {
                 const pct = parseFloat(el.dataset.pct);
-                el.textContent = formatNumber(budget * pct / 100);
+                el.textContent = formatNumber(targetRevenue * pct / 100);
             });
         }
 
+        function leaveHoldingPage() {
+            if (!isOnHoldingPage) return;
+            isOnHoldingPage = false;
+            currentSlide = 1;
+
+            // Hide decorations initially, show after transition
+            document.getElementById('decorTree').style.display = 'block';
+            document.getElementById('decorDisco').style.display = 'block';
+            document.getElementById('progressBar').classList.remove('hidden');
+            document.getElementById('discoBall').classList.remove('hidden');
+
+            updateSlide();
+            updateDiscoBall();
+        }
+
         function changeSlide(direction) {
+            if (isOnHoldingPage) {
+                if (direction > 0) {
+                    leaveHoldingPage();
+                }
+                return;
+            }
+
             currentSlide += direction;
             if (currentSlide < 1) currentSlide = 1;
             if (currentSlide > totalSlides) currentSlide = totalSlides;
@@ -1063,6 +1249,7 @@
         }
 
         function goToSlide(slideNum) {
+            if (isOnHoldingPage) return;
             currentSlide = slideNum;
             updateSlide();
             updateDiscoBall();
@@ -1125,16 +1312,27 @@
         });
 
         // Handle window resize for disco ball position
-        window.addEventListener('resize', updateDiscoBall);
+        window.addEventListener('resize', () => {
+            if (!isOnHoldingPage) {
+                updateDiscoBall();
+            }
+        });
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
+            // Hide decorations on holding page
+            document.getElementById('decorTree').style.display = 'none';
+            document.getElementById('decorDisco').style.display = 'none';
+
             updateCalculations();
-            updateDiscoBall();
         });
 
         // Also update on load
-        window.addEventListener('load', updateDiscoBall);
+        window.addEventListener('load', () => {
+            if (!isOnHoldingPage) {
+                updateDiscoBall();
+            }
+        });
     </script>
 </body>
 </html>
