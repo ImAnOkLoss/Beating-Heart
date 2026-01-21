@@ -49,6 +49,10 @@
             align-items: center;
         }
 
+        .slide.hidden {
+            display: none !important;
+        }
+
         @keyframes slideIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -69,25 +73,26 @@
         }
 
         .heart-container {
-            width: 150px;
-            height: 150px;
+            width: 200px;
+            height: 280px;
             animation: heartPulse 1.5s ease-in-out infinite;
             transition: transform 0.3s, filter 0.3s;
+            transform: rotate(-30deg);
         }
 
         .heart-container:hover {
             animation: none;
-            transform: scale(1.2);
+            transform: rotate(-30deg) scale(1.2);
             filter: brightness(1.2);
         }
 
         @keyframes heartPulse {
             0%, 100% {
-                transform: scale(1);
+                transform: rotate(-30deg) scale(1);
                 filter: brightness(1);
             }
             50% {
-                transform: scale(1.2);
+                transform: rotate(-30deg) scale(1.2);
                 filter: brightness(1.2);
             }
         }
@@ -97,13 +102,13 @@
             height: 100%;
         }
 
-        /* Decorative Elements */
+        /* Decorative Elements - positioned 10% from bottom */
         .decoration-tree,
         .decoration-disco {
             position: fixed;
-            top: 80px;
-            width: 75px;
-            height: 75px;
+            bottom: 10vh;
+            width: 100px;
+            height: 100px;
             opacity: 0.5;
             z-index: 10;
             pointer-events: none;
@@ -687,9 +692,9 @@
 
             .decoration-tree,
             .decoration-disco {
-                width: 50px;
-                height: 50px;
-                top: 60px;
+                width: 60px;
+                height: 60px;
+                bottom: 12vh;
             }
         }
     </style>
@@ -705,15 +710,34 @@
                         <stop offset="100%" stop-color="#AEA5F2"/>
                     </linearGradient>
                 </defs>
-                <!-- Cork Oak Tree (Sobreiro) -->
-                <path d="M50 95 L50 60" stroke="url(#treeGradient)" stroke-width="6" fill="none" stroke-linecap="round"/>
-                <path d="M50 70 L35 55" stroke="url(#treeGradient)" stroke-width="3" fill="none" stroke-linecap="round"/>
-                <path d="M50 65 L65 50" stroke="url(#treeGradient)" stroke-width="3" fill="none" stroke-linecap="round"/>
-                <!-- Canopy -->
-                <ellipse cx="50" cy="35" rx="35" ry="28" fill="none" stroke="url(#treeGradient)" stroke-width="2"/>
-                <ellipse cx="35" cy="40" rx="18" ry="15" fill="none" stroke="url(#treeGradient)" stroke-width="1.5" opacity="0.7"/>
-                <ellipse cx="65" cy="40" rx="18" ry="15" fill="none" stroke="url(#treeGradient)" stroke-width="1.5" opacity="0.7"/>
-                <ellipse cx="50" cy="25" rx="20" ry="18" fill="none" stroke="url(#treeGradient)" stroke-width="1.5" opacity="0.7"/>
+                <!-- Oak Tree with twisted trunk and many leaves -->
+                <g fill="url(#treeGradient)">
+                    <!-- Trunk -->
+                    <path d="M50 98 Q45 85 48 75 Q44 70 46 60 L44 55 Q42 50 45 45 L50 45 Q53 50 51 55 L49 60 Q51 70 47 75 Q50 85 55 98 Z" opacity="0.9"/>
+                    <!-- Main branches -->
+                    <path d="M48 55 Q35 50 25 55 Q20 52 15 55" stroke="url(#treeGradient)" stroke-width="3" fill="none"/>
+                    <path d="M51 55 Q65 50 75 55 Q80 52 85 55" stroke="url(#treeGradient)" stroke-width="3" fill="none"/>
+                    <path d="M47 45 Q40 35 30 38" stroke="url(#treeGradient)" stroke-width="2.5" fill="none"/>
+                    <path d="M53 45 Q60 35 70 38" stroke="url(#treeGradient)" stroke-width="2.5" fill="none"/>
+                    <path d="M50 45 Q50 30 45 20" stroke="url(#treeGradient)" stroke-width="2" fill="none"/>
+                    <path d="M50 45 Q50 30 55 20" stroke="url(#treeGradient)" stroke-width="2" fill="none"/>
+                    <!-- Oak leaves (lobed shape) -->
+                    <path d="M15 55 Q12 50 15 45 Q18 48 20 45 Q22 50 18 55 Q15 52 15 55"/>
+                    <path d="M25 50 Q22 45 25 40 Q28 43 30 40 Q32 45 28 50 Q25 47 25 50"/>
+                    <path d="M35 45 Q32 40 35 35 Q38 38 40 35 Q42 40 38 45 Q35 42 35 45"/>
+                    <path d="M85 55 Q88 50 85 45 Q82 48 80 45 Q78 50 82 55 Q85 52 85 55"/>
+                    <path d="M75 50 Q78 45 75 40 Q72 43 70 40 Q68 45 72 50 Q75 47 75 50"/>
+                    <path d="M65 45 Q68 40 65 35 Q62 38 60 35 Q58 40 62 45 Q65 42 65 45"/>
+                    <path d="M30 35 Q27 30 30 25 Q33 28 35 25 Q37 30 33 35 Q30 32 30 35"/>
+                    <path d="M70 35 Q73 30 70 25 Q67 28 65 25 Q63 30 67 35 Q70 32 70 35"/>
+                    <path d="M45 22 Q42 17 45 12 Q48 15 50 12 Q52 17 48 22 Q45 19 45 22"/>
+                    <path d="M55 22 Q58 17 55 12 Q52 15 50 12 Q48 17 52 22 Q55 19 55 22"/>
+                    <path d="M40 30 Q37 25 40 20 Q43 23 45 20 Q47 25 43 30 Q40 27 40 30"/>
+                    <path d="M60 30 Q63 25 60 20 Q57 23 55 20 Q53 25 57 30 Q60 27 60 30"/>
+                    <path d="M50 15 Q47 10 50 5 Q53 8 55 5 Q57 10 53 15 Q50 12 50 15"/>
+                    <path d="M20 60 Q17 55 20 50 Q23 53 25 50 Q27 55 23 60 Q20 57 20 60"/>
+                    <path d="M80 60 Q83 55 80 50 Q77 53 75 50 Q73 55 77 60 Q80 57 80 60"/>
+                </g>
             </svg>
         </div>
 
@@ -725,51 +749,96 @@
                         <stop offset="100%" stop-color="#AEA5F2"/>
                     </linearGradient>
                 </defs>
-                <!-- Disco Ball with mirror facets -->
-                <circle cx="50" cy="50" r="40" fill="none" stroke="url(#decorBallGradient)" stroke-width="2"/>
-                <!-- Horizontal bands -->
-                <ellipse cx="50" cy="30" rx="38" ry="8" fill="none" stroke="url(#decorBallGradient)" stroke-width="1" opacity="0.6"/>
-                <ellipse cx="50" cy="50" rx="40" ry="10" fill="none" stroke="url(#decorBallGradient)" stroke-width="1" opacity="0.6"/>
-                <ellipse cx="50" cy="70" rx="38" ry="8" fill="none" stroke="url(#decorBallGradient)" stroke-width="1" opacity="0.6"/>
-                <!-- Vertical lines -->
-                <path d="M50 10 L50 90" stroke="url(#decorBallGradient)" stroke-width="1" opacity="0.6"/>
-                <path d="M25 15 Q10 50 25 85" stroke="url(#decorBallGradient)" stroke-width="1" opacity="0.6" fill="none"/>
-                <path d="M75 15 Q90 50 75 85" stroke="url(#decorBallGradient)" stroke-width="1" opacity="0.6" fill="none"/>
-                <!-- Mirror tiles -->
-                <rect x="42" y="22" width="6" height="5" rx="1" fill="url(#decorBallGradient)" opacity="0.4"/>
-                <rect x="55" y="25" width="6" height="5" rx="1" fill="url(#decorBallGradient)" opacity="0.4"/>
-                <rect x="30" y="35" width="6" height="5" rx="1" fill="url(#decorBallGradient)" opacity="0.4"/>
-                <rect x="60" y="45" width="6" height="5" rx="1" fill="url(#decorBallGradient)" opacity="0.4"/>
-                <rect x="35" y="55" width="6" height="5" rx="1" fill="url(#decorBallGradient)" opacity="0.4"/>
-                <rect x="52" y="62" width="6" height="5" rx="1" fill="url(#decorBallGradient)" opacity="0.4"/>
-                <rect x="40" y="72" width="6" height="5" rx="1" fill="url(#decorBallGradient)" opacity="0.4"/>
-                <!-- Highlight -->
-                <circle cx="35" cy="35" r="5" fill="rgba(255,255,255,0.3)"/>
+                <!-- Disco Ball with filled grid pattern -->
+                <circle cx="50" cy="50" r="35" fill="url(#decorBallGradient)"/>
+                <!-- Grid lines (white) -->
+                <g stroke="rgba(255,255,255,0.4)" stroke-width="1" fill="none">
+                    <!-- Horizontal curves -->
+                    <ellipse cx="50" cy="25" rx="32" ry="6"/>
+                    <ellipse cx="50" cy="37" rx="34" ry="7"/>
+                    <ellipse cx="50" cy="50" rx="35" ry="8"/>
+                    <ellipse cx="50" cy="63" rx="34" ry="7"/>
+                    <ellipse cx="50" cy="75" rx="32" ry="6"/>
+                    <!-- Vertical curves -->
+                    <path d="M50 15 L50 85"/>
+                    <path d="M30 18 Q15 50 30 82"/>
+                    <path d="M70 18 Q85 50 70 82"/>
+                    <path d="M40 16 Q28 50 40 84"/>
+                    <path d="M60 16 Q72 50 60 84"/>
+                </g>
+                <!-- Highlight tiles -->
+                <rect x="45" y="30" width="5" height="4" fill="rgba(255,255,255,0.5)" rx="1"/>
+                <rect x="58" y="45" width="5" height="4" fill="rgba(255,255,255,0.5)" rx="1"/>
+                <rect x="35" y="55" width="5" height="4" fill="rgba(255,255,255,0.5)" rx="1"/>
+                <rect x="50" y="68" width="5" height="4" fill="rgba(255,255,255,0.5)" rx="1"/>
+                <!-- 4-pointed sparkle stars -->
+                <g fill="url(#decorBallGradient)">
+                    <path d="M10 20 L12 25 L10 30 L8 25 Z"/>
+                    <path d="M90 20 L92 25 L90 30 L88 25 Z"/>
+                    <path d="M10 70 L12 75 L10 80 L8 75 Z"/>
+                    <path d="M90 70 L92 75 L90 80 L88 75 Z"/>
+                    <path d="M15 45 L17 48 L15 51 L13 48 Z"/>
+                    <path d="M85 45 L87 48 L85 51 L83 48 Z"/>
+                </g>
             </svg>
         </div>
 
         <!-- Slide 0: Holding Page (Heart) -->
         <div class="slide holding-page active" data-slide="0" id="holdingPage" onclick="leaveHoldingPage()">
             <div class="heart-container">
-                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <svg viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
                     <defs>
                         <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                             <stop offset="0%" stop-color="#E584A2"/>
                             <stop offset="100%" stop-color="#AEA5F2"/>
                         </linearGradient>
                     </defs>
-                    <path d="M50 88 C20 60 5 40 5 28 C5 12 18 5 32 5 C42 5 50 15 50 15 C50 15 58 5 68 5 C82 5 95 12 95 28 C95 40 80 60 50 88 Z"
-                          fill="none"
-                          stroke="url(#heartGradient)"
-                          stroke-width="3"/>
-                    <!-- Inner heart lines for depth -->
-                    <path d="M50 78 C25 55 15 40 15 30 C15 18 25 12 35 12 C43 12 50 20 50 20 C50 20 57 12 65 12 C75 12 85 18 85 30 C85 40 75 55 50 78 Z"
-                          fill="none"
-                          stroke="url(#heartGradient)"
-                          stroke-width="1.5"
-                          opacity="0.5"/>
-                    <!-- Highlight -->
-                    <circle cx="30" cy="28" r="6" fill="rgba(255,255,255,0.25)"/>
+                    <g stroke="url(#heartGradient)" stroke-width="1.5" fill="none">
+                        <!-- Anatomical heart body -->
+                        <path d="M50 130 Q30 115 25 100 Q18 85 20 70 Q22 55 35 50 Q28 45 30 35 Q32 25 45 30 Q40 20 50 15 Q60 20 55 30 Q68 25 70 35 Q72 45 65 50 Q78 55 80 70 Q82 85 75 100 Q70 115 50 130"/>
+                        <!-- Heart chambers and vessels -->
+                        <path d="M35 50 Q40 55 45 50 Q50 55 55 50"/>
+                        <path d="M30 70 Q40 75 50 70 Q60 75 70 70"/>
+                        <path d="M35 85 Q45 90 50 85 Q55 90 65 85"/>
+                        <!-- Aorta and arteries going up -->
+                        <path d="M45 30 Q42 20 38 10 Q36 5 40 2"/>
+                        <path d="M55 30 Q58 20 62 10 Q64 5 60 2"/>
+                        <path d="M50 15 Q50 5 50 0"/>
+                        <!-- Flowers growing from top -->
+                        <!-- Flower 1 (left) -->
+                        <path d="M38 10 Q30 5 25 10"/>
+                        <circle cx="25" cy="8" r="4"/>
+                        <path d="M25 4 Q25 0 28 0"/>
+                        <path d="M21 6 Q18 4 18 8"/>
+                        <path d="M29 6 Q32 4 32 8"/>
+                        <!-- Flower 2 (center-left) -->
+                        <path d="M42 5 Q38 -5 35 0"/>
+                        <ellipse cx="35" cy="-2" rx="3" ry="4"/>
+                        <!-- Flower 3 (center) -->
+                        <path d="M50 0 Q50 -10 50 -15"/>
+                        <circle cx="50" cy="-18" r="5"/>
+                        <path d="M46 -20 Q44 -25 48 -25"/>
+                        <path d="M54 -20 Q56 -25 52 -25"/>
+                        <path d="M50 -23 Q50 -28 50 -30"/>
+                        <!-- Flower 4 (center-right) -->
+                        <path d="M58 5 Q62 -5 65 0"/>
+                        <ellipse cx="65" cy="-2" rx="3" ry="4"/>
+                        <!-- Flower 5 (right) -->
+                        <path d="M62 10 Q70 5 75 10"/>
+                        <circle cx="75" cy="8" r="4"/>
+                        <path d="M75 4 Q75 0 72 0"/>
+                        <path d="M79 6 Q82 4 82 8"/>
+                        <path d="M71 6 Q68 4 68 8"/>
+                        <!-- Leaves on stems -->
+                        <path d="M43 15 Q38 12 40 8"/>
+                        <path d="M57 15 Q62 12 60 8"/>
+                        <path d="M48 5 Q44 2 46 -2"/>
+                        <path d="M52 5 Q56 2 54 -2"/>
+                        <!-- Heart texture lines -->
+                        <path d="M40 60 Q45 65 40 70" opacity="0.5"/>
+                        <path d="M60 60 Q55 65 60 70" opacity="0.5"/>
+                        <path d="M45 95 Q50 100 55 95" opacity="0.5"/>
+                    </g>
                 </svg>
             </div>
         </div>
@@ -1111,7 +1180,7 @@
             </div>
         </div>
 
-        <!-- Disco Ball -->
+        <!-- Disco Ball (bouncing) -->
         <div class="disco-ball-container hidden" id="discoBall">
             <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
                 <defs>
@@ -1120,26 +1189,29 @@
                         <stop offset="100%" stop-color="#AEA5F2"/>
                     </linearGradient>
                 </defs>
-                <!-- Disco Ball with mirror facets -->
-                <circle cx="25" cy="25" r="22" fill="none" stroke="url(#ballGradient)" stroke-width="2" class="ball-glow"/>
-                <!-- Horizontal bands -->
-                <ellipse cx="25" cy="15" rx="20" ry="4" fill="none" stroke="url(#ballGradient)" stroke-width="0.8" opacity="0.6" class="ball-glow"/>
-                <ellipse cx="25" cy="25" rx="22" ry="5" fill="none" stroke="url(#ballGradient)" stroke-width="0.8" opacity="0.6" class="ball-glow"/>
-                <ellipse cx="25" cy="35" rx="20" ry="4" fill="none" stroke="url(#ballGradient)" stroke-width="0.8" opacity="0.6" class="ball-glow"/>
-                <!-- Vertical lines -->
-                <path d="M25 3 L25 47" stroke="url(#ballGradient)" stroke-width="0.8" opacity="0.6" class="ball-glow"/>
-                <path d="M12 5 Q3 25 12 45" stroke="url(#ballGradient)" stroke-width="0.8" opacity="0.6" fill="none" class="ball-glow"/>
-                <path d="M38 5 Q47 25 38 45" stroke="url(#ballGradient)" stroke-width="0.8" opacity="0.6" fill="none" class="ball-glow"/>
-                <!-- Mirror tiles -->
-                <rect x="20" y="10" width="4" height="3" rx="0.5" fill="url(#ballGradient)" opacity="0.4"/>
-                <rect x="30" y="12" width="4" height="3" rx="0.5" fill="url(#ballGradient)" opacity="0.4"/>
-                <rect x="14" y="20" width="4" height="3" rx="0.5" fill="url(#ballGradient)" opacity="0.4"/>
-                <rect x="32" y="23" width="4" height="3" rx="0.5" fill="url(#ballGradient)" opacity="0.4"/>
-                <rect x="18" y="30" width="4" height="3" rx="0.5" fill="url(#ballGradient)" opacity="0.4"/>
-                <rect x="28" y="33" width="4" height="3" rx="0.5" fill="url(#ballGradient)" opacity="0.4"/>
-                <rect x="22" y="38" width="4" height="3" rx="0.5" fill="url(#ballGradient)" opacity="0.4"/>
-                <!-- Highlight -->
-                <circle cx="18" cy="18" r="3" fill="rgba(255,255,255,0.3)"/>
+                <!-- Filled disco ball with grid -->
+                <circle cx="25" cy="25" r="18" fill="url(#ballGradient)" class="ball-glow"/>
+                <!-- Grid lines -->
+                <g stroke="rgba(255,255,255,0.4)" stroke-width="0.5" fill="none">
+                    <ellipse cx="25" cy="15" rx="16" ry="3"/>
+                    <ellipse cx="25" cy="21" rx="17" ry="4"/>
+                    <ellipse cx="25" cy="29" rx="17" ry="4"/>
+                    <ellipse cx="25" cy="35" rx="16" ry="3"/>
+                    <path d="M25 7 L25 43"/>
+                    <path d="M15 9 Q7 25 15 41"/>
+                    <path d="M35 9 Q43 25 35 41"/>
+                </g>
+                <!-- Highlight tiles -->
+                <rect x="22" y="13" width="3" height="2" fill="rgba(255,255,255,0.5)" rx="0.5"/>
+                <rect x="30" y="23" width="3" height="2" fill="rgba(255,255,255,0.5)" rx="0.5"/>
+                <rect x="17" y="30" width="3" height="2" fill="rgba(255,255,255,0.5)" rx="0.5"/>
+                <!-- Sparkle stars -->
+                <g fill="url(#ballGradient)">
+                    <path d="M5 10 L6 13 L5 16 L4 13 Z"/>
+                    <path d="M45 10 L46 13 L45 16 L44 13 Z"/>
+                    <path d="M5 35 L6 38 L5 41 L4 38 Z"/>
+                    <path d="M45 35 L46 38 L45 41 L44 38 Z"/>
+                </g>
             </svg>
         </div>
     </div>
@@ -1190,7 +1262,6 @@
             const fullContrib = pax - coreCrew - keyContrib - subsidised;
 
             // Calculate full price to meet 90% target revenue
-            // Revenue = keyContrib * fullPrice * 0.5 + subsidised * fullPrice * 0.666 + fullContrib * fullPrice
             const revenueCoeff = (keyContrib * PRICE_RATIOS.keyContrib) +
                                  (subsidised * PRICE_RATIOS.subsidised) +
                                  fullContrib;
@@ -1223,7 +1294,10 @@
             isOnHoldingPage = false;
             currentSlide = 1;
 
-            // Hide decorations initially, show after transition
+            // Hide the holding page completely
+            document.getElementById('holdingPage').classList.add('hidden');
+
+            // Show decorations and progress bar
             document.getElementById('decorTree').style.display = 'block';
             document.getElementById('decorDisco').style.display = 'block';
             document.getElementById('progressBar').classList.remove('hidden');
@@ -1292,7 +1366,7 @@
 
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
-            if (e.target.tagName === 'INPUT') return; // Don't navigate when typing in inputs
+            if (e.target.tagName === 'INPUT') return;
 
             if (e.key === 'ArrowRight' || e.key === ' ') {
                 e.preventDefault();
