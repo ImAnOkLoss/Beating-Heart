@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beating Heart</title>
+    <title>Beating Heart - B6</title>
     <style>
         * {
             margin: 0;
@@ -16,86 +16,427 @@
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             color: #fff;
             min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Landing Page */
+        .landing {
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-        }
-
-        .container {
-            max-width: 800px;
-            padding: 2rem;
             text-align: center;
+            padding: 2rem;
         }
 
-        h1 {
-            font-size: 3rem;
+        .landing h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, #E584A2, #AEA5F2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 60px rgba(229, 132, 162, 0.5);
+        }
+
+        .landing .subtitle {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 3rem;
+        }
+
+        .start-btn {
+            padding: 1.25rem 3rem;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            background: linear-gradient(90deg, #E584A2, #AEA5F2);
+            color: #fff;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 30px rgba(229, 132, 162, 0.4);
+        }
+
+        .start-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 40px rgba(229, 132, 162, 0.6);
+        }
+
+        /* Presentation Container */
+        .presentation {
+            display: none;
+            min-height: 100vh;
+            padding-bottom: 120px;
+        }
+
+        .presentation.active {
+            display: block;
+        }
+
+        /* Slides */
+        .slide {
+            display: none;
+            min-height: calc(100vh - 120px);
+            padding: 2rem;
+            animation: slideIn 0.5s ease;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-content {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .slide-number {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.4);
             margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .slide h1 {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            margin-bottom: 1.5rem;
             background: linear-gradient(90deg, #E584A2, #AEA5F2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        p {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 2rem;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            font-size: 1rem;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            background: linear-gradient(90deg, #E584A2, #AEA5F2);
+        .slide h2 {
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem;
             color: #fff;
-            transition: transform 0.2s, opacity 0.2s;
         }
 
-        .btn:hover {
-            transform: scale(1.05);
-            opacity: 0.9;
+        .slide p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1rem;
         }
 
-        /* Slide navigation */
-        .slides {
-            display: none;
+        .quote {
+            font-style: italic;
+            font-size: 1.3rem;
+            padding: 1.5rem 2rem;
+            border-left: 4px solid #E584A2;
+            background: rgba(229, 132, 162, 0.1);
+            border-radius: 0 12px 12px 0;
+            margin: 2rem 0;
         }
 
-        .slide {
-            display: none;
-            animation: fadeIn 0.5s ease;
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
         }
 
-        .slide.active {
-            display: block;
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s, border-color 0.3s;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(229, 132, 162, 0.5);
         }
 
-        .nav-buttons {
-            margin-top: 2rem;
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(90deg, #E584A2, #AEA5F2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 0.5rem;
+        }
+
+        /* Infrastructure List */
+        .infra-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .infra-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .infra-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Budget Table */
+        .budget-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .budget-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.25rem;
+            text-align: center;
+        }
+
+        .budget-item.highlight {
+            border-color: #4affb3;
+            background: rgba(74, 255, 179, 0.1);
+        }
+
+        .budget-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .budget-label {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 0.25rem;
+        }
+
+        /* Guardrails */
+        .guardrails {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin: 1.5rem 0;
+        }
+
+        .guardrail {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 8px;
+            border-left: 3px solid #ff6b6b;
+        }
+
+        .guardrail.positive {
+            background: rgba(74, 255, 179, 0.1);
+            border-left-color: #4affb3;
+        }
+
+        /* Team Matrix */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .bubble {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: transform 0.2s;
+        }
+
+        .bubble:hover {
+            transform: translateX(5px);
+        }
+
+        .bubble.ok { border-left: 4px solid #4affb3; }
+        .bubble.needs-hands { border-left: 4px solid #ffd700; }
+        .bubble.critical { border-left: 4px solid #ff6b6b; background: rgba(255, 107, 107, 0.1); }
+
+        .bubble-status {
+            font-size: 1.5rem;
+        }
+
+        .bubble-info {
+            flex: 1;
+        }
+
+        .bubble-name {
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .bubble-lead {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .bubble-support {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Legend */
+        .legend {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .legend-dot.ok { background: #4affb3; }
+        .legend-dot.needs-hands { background: #ffd700; }
+        .legend-dot.critical { background: #ff6b6b; }
+
+        /* Timeline */
+        .timeline {
+            margin: 2rem 0;
+        }
+
+        .timeline-item {
             display: flex;
             gap: 1rem;
+            padding: 1rem 0;
+            border-left: 2px solid rgba(255, 255, 255, 0.2);
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 1.25rem;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: linear-gradient(90deg, #E584A2, #AEA5F2);
+        }
+
+        .timeline-date {
+            font-weight: bold;
+            min-width: 100px;
+            color: #E584A2;
+        }
+
+        .timeline-content {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Next Steps */
+        .steps-list {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .steps-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
             justify-content: center;
+            background: linear-gradient(90deg, #E584A2, #AEA5F2);
+            border-radius: 50%;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        /* Navigation */
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: rgba(26, 26, 46, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .nav-logo {
+            font-weight: bold;
+            font-size: 1.2rem;
+            background: linear-gradient(90deg, #E584A2, #AEA5F2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-controls {
+            display: flex;
+            gap: 0.5rem;
         }
 
         .nav-btn {
-            padding: 0.75rem 1.5rem;
+            padding: 0.5rem 1rem;
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: #fff;
             border-radius: 8px;
             cursor: pointer;
             transition: background 0.2s;
+            font-size: 0.9rem;
         }
 
-        .nav-btn:hover {
+        .nav-btn:hover:not(:disabled) {
             background: rgba(255, 255, 255, 0.2);
         }
 
@@ -104,58 +445,529 @@
             cursor: not-allowed;
         }
 
-        .progress {
-            margin-top: 1rem;
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.9rem;
+        /* Disco Ball Progress */
+        .progress-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to top, rgba(26, 26, 46, 0.95), transparent);
+            z-index: 100;
+        }
+
+        .progress-track {
+            position: absolute;
+            bottom: 20px;
+            left: 5%;
+            right: 5%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+        }
+
+        .progress-sections {
+            display: flex;
+            justify-content: space-between;
+            position: absolute;
+            bottom: 10px;
+            left: 5%;
+            right: 5%;
+        }
+
+        .progress-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .progress-dot.active {
+            background: #E584A2;
+            transform: scale(1.5);
+        }
+
+        .progress-dot.completed {
+            background: #4affb3;
+        }
+
+        .disco-ball {
+            position: absolute;
+            bottom: 30px;
+            width: 50px;
+            height: 50px;
+            transition: left 0.5s ease-out;
+            filter: drop-shadow(0 0 20px rgba(229, 132, 162, 0.6));
+        }
+
+        .disco-ball svg {
+            width: 100%;
+            height: 100%;
+            animation: bounce 0.6s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+
+        .disco-ball .sparkle {
+            animation: sparkle 0.3s ease-in-out infinite;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .slide {
+                padding: 1rem;
+                padding-top: 70px;
+            }
+
+            .nav-bar {
+                padding: 0.75rem 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .legend {
+                gap: 1rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Landing / Start -->
-    <div class="container" id="landing">
+    <!-- Landing Page -->
+    <div class="landing" id="landing">
         <h1>Beating Heart</h1>
-        <p>Your interactive presentation starts here</p>
-        <button class="btn" onclick="startPresentation()">Start</button>
+        <p class="subtitle">Chapter 6 - B6 Planning Overview</p>
+        <button class="start-btn" onclick="startPresentation()">Enter</button>
     </div>
 
-    <!-- Slides Container -->
-    <div class="container slides" id="presentation">
+    <!-- Presentation -->
+    <div class="presentation" id="presentation">
+        <!-- Navigation Bar -->
+        <nav class="nav-bar">
+            <div class="nav-logo">B6</div>
+            <div class="nav-controls">
+                <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">&#8592;</button>
+                <span style="color: rgba(255,255,255,0.5); padding: 0 0.5rem;">
+                    <span id="currentSlide">1</span> / <span id="totalSlides">5</span>
+                </span>
+                <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">&#8594;</button>
+            </div>
+        </nav>
+
+        <!-- Slide 1: Vision -->
         <div class="slide active" data-slide="1">
-            <h1>Slide 1</h1>
-            <p>This is your first slide. Edit the content to tell your story.</p>
+            <div class="slide-content">
+                <div class="slide-number">01 / Vision</div>
+                <h1>The Beating Heart of Beginnings</h1>
+
+                <p>Chapter 6 is not a smaller version of the festival. It is an <strong>intentional reset</strong>.</p>
+
+                <div class="quote">
+                    "The pause was not a failure of momentum. It was an act of responsibility."
+                </div>
+
+                <h2>A Two-Year Rhythm</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">2026</div>
+                        <div class="stat-label">Regenerative Chapter<br>MVP Scale</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">2027</div>
+                        <div class="stat-label">Expansion Chapter<br>Full Scale</div>
+                    </div>
+                </div>
+
+                <p style="text-align: center; margin-top: 2rem;">
+                    <strong>Led by Joana & Jica</strong><br>
+                    <span style="color: rgba(255,255,255,0.6);">Rotating leadership to match two-year cycles</span>
+                </p>
+
+                <div class="quote" style="margin-top: 2rem;">
+                    "Beginnings thrives not through strain, but through shared abundance."
+                </div>
+            </div>
         </div>
 
+        <!-- Slide 2: Scope -->
         <div class="slide" data-slide="2">
-            <h1>Slide 2</h1>
-            <p>Add more slides by copying the slide div structure.</p>
+            <div class="slide-content">
+                <div class="slide-number">02 / Scope</div>
+                <h1>The Parameters</h1>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">May 29-31</div>
+                        <div class="stat-label">2026</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">150-200</div>
+                        <div class="stat-label">Attendees</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">2-3</div>
+                        <div class="stat-label">Days</div>
+                    </div>
+                </div>
+
+                <h2>Minimum Infrastructure</h2>
+                <div class="infra-list">
+                    <div class="infra-item">
+                        <span class="infra-icon">&#127926;</span>
+                        <span>1 Music Stage (Valley)</span>
+                    </div>
+                    <div class="infra-item">
+                        <span class="infra-icon">&#10024;</span>
+                        <span>1 Experiences Stage</span>
+                    </div>
+                    <div class="infra-item">
+                        <span class="infra-icon">&#127867;</span>
+                        <span>1 Bar + BYOB</span>
+                    </div>
+                    <div class="infra-item">
+                        <span class="infra-icon">&#127869;</span>
+                        <span>1 Kitchen (2 meals/day)</span>
+                    </div>
+                </div>
+
+                <h2>Primary Objectives</h2>
+                <ul class="steps-list">
+                    <li><span class="step-number">1</span> Rebuild community involvement</li>
+                    <li><span class="step-number">2</span> Foster sustainable core crew growth</li>
+                    <li><span class="step-number">3</span> Reduce burnout</li>
+                    <li><span class="step-number">4</span> Lay foundation for B7 (2027)</li>
+                </ul>
+            </div>
         </div>
 
+        <!-- Slide 3: Budget -->
         <div class="slide" data-slide="3">
-            <h1>Slide 3</h1>
-            <p>Use CSS and JavaScript to add interactivity.</p>
+            <div class="slide-content">
+                <div class="slide-number">03 / Budget</div>
+                <h1>The Numbers</h1>
+
+                <div class="budget-grid">
+                    <div class="budget-item highlight">
+                        <div class="budget-value">&euro;12K</div>
+                        <div class="budget-label">Starting Capital</div>
+                    </div>
+                    <div class="budget-item highlight">
+                        <div class="budget-value">&euro;12K+</div>
+                        <div class="budget-label">Target End Capital</div>
+                    </div>
+                    <div class="budget-item">
+                        <div class="budget-value">100-150</div>
+                        <div class="budget-label">Paying Attendees</div>
+                    </div>
+                    <div class="budget-item">
+                        <div class="budget-value">~&euro;160</div>
+                        <div class="budget-label">Avg Ticket Price</div>
+                    </div>
+                    <div class="budget-item">
+                        <div class="budget-value">&euro;16-24K</div>
+                        <div class="budget-label">Est. Revenue</div>
+                    </div>
+                </div>
+
+                <h2>Financial Guardrails</h2>
+                <div class="guardrails">
+                    <div class="guardrail">
+                        <span>&#9888;</span>
+                        <span>Do NOT rely on donations for core budget</span>
+                    </div>
+                    <div class="guardrail">
+                        <span>&#9888;</span>
+                        <span>No core member exposed to personal financial risk</span>
+                    </div>
+                    <div class="guardrail positive">
+                        <span>&#10003;</span>
+                        <span>Ticket tiers: Standard, Low-income, High-income uplift</span>
+                    </div>
+                    <div class="guardrail positive">
+                        <span>&#10003;</span>
+                        <span>Donations = supplementary "trump card" only</span>
+                    </div>
+                </div>
+
+                <h2>Historical Context</h2>
+                <div class="stats-grid">
+                    <div class="stat-card" style="border-color: #ff6b6b;">
+                        <div class="stat-value" style="color: #ff6b6b;">-&euro;3,092</div>
+                        <div class="stat-label">B4 Result (Loss)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">Surplus</div>
+                        <div class="stat-label">B5 Target</div>
+                    </div>
+                    <div class="stat-card" style="border-color: #4affb3;">
+                        <div class="stat-value" style="color: #4affb3;">Break Even+</div>
+                        <div class="stat-label">B6 Requirement</div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="nav-buttons">
-            <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
-            <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next →</button>
+        <!-- Slide 4: Team Matrix -->
+        <div class="slide" data-slide="4">
+            <div class="slide-content">
+                <div class="slide-number">04 / Team Matrix</div>
+                <h1>The Bubbles</h1>
+
+                <div class="legend">
+                    <div class="legend-item">
+                        <span class="legend-dot ok"></span>
+                        <span>OK (8)</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot needs-hands"></span>
+                        <span>Needs Hands (4)</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot critical"></span>
+                        <span>Critical (2)</span>
+                    </div>
+                </div>
+
+                <div class="team-grid">
+                    <div class="bubble ok">
+                        <span class="bubble-status">&#9989;</span>
+                        <div class="bubble-info">
+                            <div class="bubble-name">Comms</div>
+                            <div class="bubble-lead">Lead: Joana</div>
+                            <div class="bubble-support">Support: Nick, Ksenia</div>
+                        </div>
+                    </div>
+                    <div class="bubble ok">
+                        <span class="bubble-status">&#9989;</span>
+                        <div class="bubble-info">
+                            <div class="bubble-name">Finance</div>
+                            <div class="bubble-lead">Lead: Lukas</div>
+                            <div class="bubble-support">Support: Jay</div>
+                        </div>
+                    </div>
+                    <div class="bubble ok">
+                        <span class="bubble-status">&#9989;</span>
+                        <div class="bubble-info">
+                            <div class="bubble-name">Programming</div>
+                            <div class="bubble-lead">Lead: Jo</div>
+                            <div class="bubble-support">Support: Lukas, Nick</div>
+                        </div>
+                    </div>
+                    <div class="bubble ok">
+                        <span class="bubble-status">&#9989;</span>
+                        <div class="bubble-info">
+                            <div class="bubble-name">Bar</div>
+                            <div class="bubble-lead">Lead: Jay</div>
+                            <div class="bubble-support">Support: Jica</div>
+                        </div>
+                    </div>
+                    <div class="bubble ok">
+                        <span class="bubble-status">&#9989;</span>
+                        <div class="bubble-info">
+                            <div class="bubble-name">Structures</div>
+                            <div class="bubble-lead">Lead: Si</div>
+                            <div class="bubble-support">Support: Ben</div>
+                        </div>
+                    </div>
+                    <div class="bubble ok">
+                        <span class="bubble-status">&#9989;</span>
+                        <div class="bubble-info">
+                            <div class="bubble-name">Tech</div>
+                            <div class="bubble-lead">Lead: Jo</div>
+                            <div class="bubble-support">Support: Si, Jica</div>
+                        </div>
+                    </div>
+                    <div class="bubble ok">
+                        <span class="bubble-status">&#9989;</span>
+                        <div class="bubble-info">
+                            <div class="bubble-name">Experiences</div>
+                            <div class="bubble-lead">Lead: Nick</div>
+                            <div class="bubble-support">Support: Lukas, Jay</div>
+                        </div>
+                    </div>
+                    <div class="bubble ok">
+                        <span class="bubble-status">&#9989;</span>
+                        <div class="bubble-info">
+                            <div class="bubble-name">People & Platform</div>
+                            <div class="bubble-lead">Lead: Joana</div>
+                            <div class="bubble-support">Support: Jica</div>
+                        </div>
+                    </div>
+                    <div class="bubble needs-hands">
+                        <span class="bubble-status">&#9888;</span>
+                        <div class="bubble-info">
+                            <div class="bubble-name">Legal</div>
+                            <div class="bubble-lead">Lead: Joana</div>
+                            <div class="bubble-support">Support: Afonso</div>
+                        </div>
+                    </div>
+                    <div class="bubble needs-hands">
+                        <span class="bubble-status">&#9888;</span>
+                        <div class="bubble-info">
+                            <div class="bubble-name">Site</div>
+                            <div class="bubble-lead">Lead: Afonso</div>
+                            <div class="bubble-support">Support: Si</div>
+                        </div>
+                    </div>
+                    <div class="bubble needs-hands">
+                        <span class="bubble-status">&#9888;</span>
+                        <div class="bubble-info">
+                            <div class="bubble-name">Onsite Ops</div>
+                            <div class="bubble-lead">Lead: Joana</div>
+                            <div class="bubble-support">Support: Jica</div>
+                        </div>
+                    </div>
+                    <div class="bubble needs-hands">
+                        <span class="bubble-status">&#9888;</span>
+                        <div class="bubble-info">
+                            <div class="bubble-name">Sustainability</div>
+                            <div class="bubble-lead">Lead: Jica</div>
+                            <div class="bubble-support">Support: -</div>
+                        </div>
+                    </div>
+                    <div class="bubble critical">
+                        <span class="bubble-status">&#10060;</span>
+                        <div class="bubble-info">
+                            <div class="bubble-name">Food</div>
+                            <div class="bubble-lead" style="color: #ff6b6b;">NO LEAD</div>
+                            <div class="bubble-support">Support: Lukas, Nick</div>
+                        </div>
+                    </div>
+                    <div class="bubble critical">
+                        <span class="bubble-status">&#10060;</span>
+                        <div class="bubble-info">
+                            <div class="bubble-name">Visual Arts</div>
+                            <div class="bubble-lead" style="color: #ff6b6b;">NO LEAD</div>
+                            <div class="bubble-support">Support: Jica</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="progress">
-            <span id="currentSlide">1</span> / <span id="totalSlides">3</span>
+
+        <!-- Slide 5: Summary -->
+        <div class="slide" data-slide="5">
+            <div class="slide-content">
+                <div class="slide-number">05 / Summary</div>
+                <h1>The Path Forward</h1>
+
+                <h2>Immediate Next Steps</h2>
+                <ul class="steps-list">
+                    <li><span class="step-number">1</span> Finalize ticketing/contribution model (next Tuesday)</li>
+                    <li><span class="step-number">2</span> Build Day: January 31st (12-15 people, 3 teams)</li>
+                    <li><span class="step-number">3</span> Community email: gauge interest, skills, availability</li>
+                    <li><span class="step-number">4</span> Budget proposals from Afonso & Si</li>
+                </ul>
+
+                <h2>Key Milestones</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <span class="timeline-date">Jan 2026</span>
+                        <span class="timeline-content">Budget finalization & ticket launch</span>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">Feb-Mar 2026</span>
+                        <span class="timeline-content">Long-lead procurement (toilets, tech, materials)</span>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">Apr 2026</span>
+                        <span class="timeline-content">Build weekends begin</span>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">May 29-31</span>
+                        <span class="timeline-content">B6 Event</span>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">Jun 2026</span>
+                        <span class="timeline-content">Retrospective & financial closure</span>
+                    </div>
+                </div>
+
+                <div class="quote" style="margin-top: 2rem; text-align: center;">
+                    <strong>Our Commitment:</strong><br><br>
+                    Protect and nourish the collective fire.<br>
+                    Welcome new team and community members.<br>
+                    Grow at the pace of what can be sustainable.<br>
+                    Stay connected to the land and each other.
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Bar with Disco Ball -->
+        <div class="progress-bar">
+            <div class="progress-track"></div>
+            <div class="progress-sections">
+                <span class="progress-dot active" data-dot="1"></span>
+                <span class="progress-dot" data-dot="2"></span>
+                <span class="progress-dot" data-dot="3"></span>
+                <span class="progress-dot" data-dot="4"></span>
+                <span class="progress-dot" data-dot="5"></span>
+            </div>
+            <div class="disco-ball" id="discoBall">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Ball base -->
+                    <defs>
+                        <radialGradient id="ballGradient" cx="30%" cy="30%">
+                            <stop offset="0%" stop-color="#fff"/>
+                            <stop offset="50%" stop-color="#E584A2"/>
+                            <stop offset="100%" stop-color="#AEA5F2"/>
+                        </radialGradient>
+                        <filter id="glow">
+                            <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    <circle cx="50" cy="50" r="40" fill="url(#ballGradient)" filter="url(#glow)"/>
+                    <!-- Mirror tiles -->
+                    <g fill="rgba(255,255,255,0.6)">
+                        <rect x="35" y="20" width="8" height="6" rx="1" class="sparkle"/>
+                        <rect x="50" y="22" width="8" height="6" rx="1" class="sparkle" style="animation-delay: 0.1s"/>
+                        <rect x="62" y="28" width="7" height="5" rx="1" class="sparkle" style="animation-delay: 0.2s"/>
+                        <rect x="25" y="35" width="8" height="6" rx="1" class="sparkle" style="animation-delay: 0.15s"/>
+                        <rect x="42" y="38" width="9" height="7" rx="1" class="sparkle" style="animation-delay: 0.25s"/>
+                        <rect x="58" y="40" width="8" height="6" rx="1" class="sparkle" style="animation-delay: 0.05s"/>
+                        <rect x="70" y="45" width="6" height="5" rx="1" class="sparkle" style="animation-delay: 0.3s"/>
+                        <rect x="22" y="50" width="7" height="6" rx="1" class="sparkle" style="animation-delay: 0.2s"/>
+                        <rect x="35" y="52" width="8" height="6" rx="1" class="sparkle" style="animation-delay: 0.1s"/>
+                        <rect x="50" y="55" width="9" height="6" rx="1" class="sparkle" style="animation-delay: 0.35s"/>
+                        <rect x="65" y="58" width="7" height="5" rx="1" class="sparkle" style="animation-delay: 0.15s"/>
+                        <rect x="28" y="65" width="8" height="5" rx="1" class="sparkle" style="animation-delay: 0.25s"/>
+                        <rect x="45" y="68" width="8" height="5" rx="1" class="sparkle" style="animation-delay: 0.4s"/>
+                        <rect x="60" y="72" width="6" height="4" rx="1" class="sparkle" style="animation-delay: 0.05s"/>
+                    </g>
+                    <!-- Highlight -->
+                    <ellipse cx="38" cy="35" rx="8" ry="5" fill="rgba(255,255,255,0.4)"/>
+                </svg>
+            </div>
         </div>
     </div>
 
     <script>
         let currentSlide = 1;
-        const slides = document.querySelectorAll('.slide');
-        const totalSlides = slides.length;
-
-        document.getElementById('totalSlides').textContent = totalSlides;
+        const totalSlides = 5;
 
         function startPresentation() {
             document.getElementById('landing').style.display = 'none';
-            document.getElementById('presentation').style.display = 'block';
+            document.getElementById('presentation').classList.add('active');
             updateSlide();
+            updateDiscoBall();
         }
 
         function changeSlide(direction) {
@@ -163,23 +975,90 @@
             if (currentSlide < 1) currentSlide = 1;
             if (currentSlide > totalSlides) currentSlide = totalSlides;
             updateSlide();
+            updateDiscoBall();
+        }
+
+        function goToSlide(slideNum) {
+            currentSlide = slideNum;
+            updateSlide();
+            updateDiscoBall();
         }
 
         function updateSlide() {
-            slides.forEach(slide => slide.classList.remove('active'));
+            // Update slide visibility
+            document.querySelectorAll('.slide').forEach(slide => {
+                slide.classList.remove('active');
+            });
             document.querySelector(`[data-slide="${currentSlide}"]`).classList.add('active');
+
+            // Update counter
             document.getElementById('currentSlide').textContent = currentSlide;
 
+            // Update buttons
             document.getElementById('prevBtn').disabled = currentSlide === 1;
             document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+
+            // Update progress dots
+            document.querySelectorAll('.progress-dot').forEach((dot, index) => {
+                dot.classList.remove('active', 'completed');
+                if (index + 1 === currentSlide) {
+                    dot.classList.add('active');
+                } else if (index + 1 < currentSlide) {
+                    dot.classList.add('completed');
+                }
+            });
+        }
+
+        function updateDiscoBall() {
+            const discoBall = document.getElementById('discoBall');
+            const trackWidth = window.innerWidth * 0.9; // 90% of window (5% margin each side)
+            const ballWidth = 50;
+            const startPos = window.innerWidth * 0.05; // 5% from left
+
+            // Calculate position based on current slide
+            const sectionWidth = trackWidth / totalSlides;
+            const targetPos = startPos + (sectionWidth * (currentSlide - 0.5)) - (ballWidth / 2);
+
+            discoBall.style.left = targetPos + 'px';
         }
 
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
-            if (document.getElementById('presentation').style.display === 'block') {
-                if (e.key === 'ArrowRight' || e.key === ' ') changeSlide(1);
-                if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (document.getElementById('presentation').classList.contains('active')) {
+                if (e.key === 'ArrowRight' || e.key === ' ') {
+                    e.preventDefault();
+                    changeSlide(1);
+                }
+                if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    changeSlide(-1);
+                }
+            } else {
+                // Start presentation on Enter or Space from landing
+                if (e.key === 'Enter' || e.key === ' ') {
+                    startPresentation();
+                }
             }
+        });
+
+        // Click on progress dots
+        document.querySelectorAll('.progress-dot').forEach(dot => {
+            dot.addEventListener('click', () => {
+                goToSlide(parseInt(dot.dataset.dot));
+            });
+            dot.style.cursor = 'pointer';
+        });
+
+        // Handle window resize for disco ball position
+        window.addEventListener('resize', () => {
+            if (document.getElementById('presentation').classList.contains('active')) {
+                updateDiscoBall();
+            }
+        });
+
+        // Initialize disco ball position
+        document.addEventListener('DOMContentLoaded', () => {
+            updateDiscoBall();
         });
     </script>
 </body>
