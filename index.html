@@ -223,43 +223,23 @@
             font-size: 0.9rem;
         }
 
-        /* Info Grid */
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin: 1rem 0;
-        }
-
-        .info-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 1rem;
+        /* Simple Section (no border, stacked) */
+        .simple-section {
+            margin: 1.25rem 0;
             text-align: center;
         }
 
-        .info-card h3 {
-            margin-top: 0;
-            color: var(--pink);
+        .simple-section h3 {
+            color: #fff;
+            margin: 0 0 0.5rem;
+            font-size: 1.1rem;
         }
 
-        .info-card p {
-            margin: 0.4rem 0;
-            font-size: 0.9rem;
-        }
-
-        /* Scope List */
-        .scope-list {
-            list-style: none;
-            margin: 0.5rem 0;
-            text-align: left;
-            display: inline-block;
-        }
-
-        .scope-list li {
-            padding: 0.3rem 0;
-            font-size: 0.9rem;
+        .simple-section p {
+            color: rgba(255, 255, 255, 0.85);
+            margin: 0.3rem 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
         }
 
         /* Editable Input */
@@ -834,24 +814,16 @@
                     </div>
                 </div>
 
-                <div class="info-grid">
-                    <div class="info-card">
-                        <h3>Core</h3>
-                        <p><strong>Leads:</strong> Joana & Jica</p>
-                        <p><strong>Core Crew:</strong> Afonso, Ben, Jay, Jo, Ksenia, Lukas, Nick, Si</p>
-                        <p><strong>Onboarding:</strong> 3-4 key new core crew members</p>
-                    </div>
-                    <div class="info-card">
-                        <h3>Scope</h3>
-                        <ul class="scope-list">
-                            <li>1 main stage (Valley)</li>
-                            <li>1 chill out/tea bar/workshop space (Canopy/Bar)</li>
-                            <li>1 Kiosk with meals 2-3 times a day</li>
-                            <li>Chillout and food eating areas</li>
-                            <li>Camping, water, showers and toilets</li>
-                            <li>More experiences to dream up (low lift → high value)</li>
-                        </ul>
-                    </div>
+                <div class="simple-section">
+                    <h3>Core</h3>
+                    <p><strong>Leads:</strong> Joana & Jica</p>
+                    <p><strong>Core Crew:</strong> Afonso, Ben, Jay, Jo, Ksenia, Lukas, Nick, Si</p>
+                    <p><strong>Onboarding:</strong> 3-4 key new core crew members</p>
+                </div>
+
+                <div class="simple-section">
+                    <h3>Scope</h3>
+                    <p>1 main stage (Valley) • 1 chill out/tea bar/workshop space (Canopy/Bar) • 1 Kiosk with meals 2-3 times a day • Chillout and food eating areas • Camping, water, showers and toilets • More experiences to dream up (low lift → high value)</p>
                 </div>
             </div>
         </div>
