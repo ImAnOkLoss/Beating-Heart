@@ -79,9 +79,6 @@
             transition: transform 0.3s;
             transform: rotate(-30deg);
             position: relative;
-            /* Gradient background - this will show through the lines */
-            background: linear-gradient(135deg, #E584A2 0%, #AEA5F2 100%);
-            border-radius: 8px;
         }
 
         .heart-container:hover {
@@ -89,8 +86,8 @@
             transform: rotate(-30deg) scale(1.2);
         }
 
-        .heart-container:hover img {
-            filter: invert(1) brightness(1.3);
+        .heart-container:hover .heart-gradient {
+            filter: brightness(1.3);
         }
 
         @keyframes heartPulse {
@@ -102,14 +99,23 @@
             }
         }
 
-        .heart-container img {
+        /* Gradient div masked by the heart image - inverted */
+        .heart-gradient {
             width: 100%;
             height: 100%;
-            object-fit: contain;
-            /* Invert: black lines become white, white bg becomes black */
-            filter: invert(1);
-            /* Screen: black disappears, white shows gradient behind */
-            mix-blend-mode: screen;
+            background: linear-gradient(135deg, #E584A2 0%, #AEA5F2 100%);
+            /* Two masks: solid white + heart image, with exclude to invert */
+            -webkit-mask-image: linear-gradient(white, white), url('heart.png');
+            mask-image: linear-gradient(white, white), url('heart.png');
+            -webkit-mask-size: contain, contain;
+            mask-size: contain, contain;
+            -webkit-mask-repeat: no-repeat, no-repeat;
+            mask-repeat: no-repeat, no-repeat;
+            -webkit-mask-position: center, center;
+            mask-position: center, center;
+            /* Exclude composite: shows lines (where masks differ) */
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
         }
 
         /* Main Title */
@@ -668,7 +674,7 @@
         <!-- Slide 0: Holding Page (Heart) -->
         <div class="slide holding-page active" data-slide="0" id="holdingPage" onclick="leaveHoldingPage()">
             <div class="heart-container">
-                <img src="heart.png" alt="Beating Heart">
+                <div class="heart-gradient"></div>
             </div>
         </div>
 
