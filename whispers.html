@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B6: Whispers of Beginnings</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --pink: #E584A2;
+            --purple: #AEA5F2;
+            --green: #4affb3;
+            --yellow: #ffd700;
+            --red: #ff6b6b;
+            --bg-dark: #1a1a2e;
+            --bg-light: #16213e;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-light) 100%);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Presentation Container */
+        .presentation {
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        /* Slides */
+        .slide {
+            display: none;
+            min-height: calc(100vh - 80px);
+            padding: 2rem;
+            animation: slideIn 0.4s ease;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .slide.hidden {
+            display: none !important;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-content {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        /* Holding Page (Heart) */
+        .holding-page {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            cursor: pointer;
+        }
+
+        .heart-container {
+            width: 220px;
+            height: 320px;
+            animation: heartPulse 1.5s ease-in-out infinite;
+            transition: transform 0.3s;
+            transform: rotate(-30deg);
+            position: relative;
+        }
+
+        .heart-container:hover {
+            animation: none;
+            transform: rotate(-30deg) scale(1.2);
+        }
+
+        .heart-container:hover .heart-gradient {
+            filter: brightness(1.3);
+        }
+
+        @keyframes heartPulse {
+            0%, 100% {
+                transform: rotate(-30deg) scale(1);
+            }
+            50% {
+                transform: rotate(-30deg) scale(1.1);
+            }
+        }
+
+        /* Heart with gradient - mask approach */
+        .heart-gradient {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #E584A2 0%, #AEA5F2 100%);
+            -webkit-mask-image: url('heart.png');
+            mask-image: url('heart.png');
+            -webkit-mask-size: contain;
+            mask-size: contain;
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-position: center;
+            mask-position: center;
+        }
+
+        /* Oak with gradient - same style as heart */
+        .oak-container {
+            width: 220px;
+            height: 320px;
+            margin: 0 auto 2rem auto;
+        }
+
+        .oak-gradient {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #E584A2 0%, #AEA5F2 100%);
+            -webkit-mask-image: url('oak.png');
+            mask-image: url('oak.png');
+            -webkit-mask-size: contain;
+            mask-size: contain;
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-position: center;
+            mask-position: center;
+        }
+
+        /* Main Title */
+        .title-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .main-title {
+            font-size: clamp(2.5rem, 7vw, 4rem);
+            display: inline;
+            background: linear-gradient(90deg, var(--pink), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .date-display {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            color: var(--green);
+            margin-left: 1rem;
+            display: inline;
+        }
+
+        h2 {
+            font-size: 1.3rem;
+            margin: 1.5rem 0 0.75rem;
+            color: rgba(255,255,255,0.9);
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            margin: 1rem 0 0.5rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        p, li {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Twin Boxes Container */
+        .twin-boxes {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Commitment Box with Neon Animation */
+        .commitment-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(229, 132, 162, 0.3);
+            border-radius: 16px;
+            padding: 1.25rem 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .commitment-box:hover {
+            transform: translateY(-3px);
+            border-color: rgba(229, 132, 162, 0.5);
+        }
+
+        .commitment-box.animating::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 16px;
+            padding: 2px;
+            background: linear-gradient(90deg, var(--pink), var(--purple), var(--pink));
+            background-size: 200% 100%;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: neonBorder 3s linear;
+        }
+
+        @keyframes neonBorder {
+            0% { background-position: 0% 50%; opacity: 1; }
+            100% { background-position: 200% 50%; opacity: 0; }
+        }
+
+        .commitment-box h3 {
+            margin: 0 0 0.75rem;
+            color: var(--pink);
+            font-size: 1.1rem;
+        }
+
+        .commitment-box p {
+            margin: 0.3rem 0;
+            font-size: 0.9rem;
+        }
+
+        /* Objectives Box */
+        .objectives-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(174, 165, 242, 0.3);
+            border-radius: 16px;
+            padding: 1.25rem 1.5rem;
+            text-align: center;
+        }
+
+        .objectives-box h3 {
+            margin: 0 0 0.75rem;
+            color: var(--purple);
+            font-size: 1.1rem;
+        }
+
+        .objectives-box p {
+            margin: 0.3rem 0;
+            font-size: 0.9rem;
+        }
+
+        /* Simple Section (no border, stacked) */
+        .simple-section {
+            margin: 1.25rem 0;
+            text-align: center;
+        }
+
+        .simple-section h3 {
+            color: #fff;
+            margin: 0 0 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .simple-section p {
+            color: rgba(255, 255, 255, 0.85);
+            margin: 0.3rem 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* WIP Section styling */
+        .wip-section {
+            margin: 1.25rem 0;
+            text-align: left;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+        }
+
+        .wip-section h3 {
+            color: rgba(255, 255, 255, 0.5);
+            margin: 0 0 0.75rem;
+            font-size: 0.9rem;
+            font-weight: normal;
+        }
+
+        .wip-section p {
+            color: rgba(255, 255, 255, 0.85);
+            margin: 0.3rem 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Editable Input */
+        .editable-number {
+            background: transparent;
+            border: none;
+            border-bottom: 2px dashed var(--green);
+            color: var(--green);
+            font-size: 2rem;
+            font-weight: bold;
+            width: 120px;
+            text-align: center;
+            outline: none;
+        }
+
+        .editable-number:focus {
+            border-bottom-style: solid;
+        }
+
+        /* Small editable input for tables/bubbles */
+        .editable-small {
+            background: transparent;
+            border: none;
+            border-bottom: 2px dashed var(--green);
+            color: var(--green);
+            font-size: 1rem;
+            font-weight: bold;
+            width: 50px;
+            text-align: center;
+            outline: none;
+        }
+
+        .editable-small:focus {
+            border-bottom-style: solid;
+        }
+
+        /* Inspiration Page */
+        .inspiration-slide {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 80px);
+        }
+
+        .inspiration-text {
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            text-align: center;
+            font-style: italic;
+            color: rgba(255,255,255,0.85);
+            max-width: 700px;
+            line-height: 1.8;
+            padding: 3rem 2rem;
+        }
+
+        .inspiration-text span {
+            background: linear-gradient(90deg, var(--pink), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+        }
+
+        /* Dream Points List */
+        .dream-points {
+            text-align: left;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .dream-points p {
+            margin: 1.25rem 0;
+            padding-left: 1rem;
+            border-left: 3px solid var(--purple);
+            line-height: 1.7;
+        }
+
+        /* Numbers Page */
+        .budget-header {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+        }
+
+        .budget-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid var(--green);
+            border-radius: 16px;
+            padding: 1.25rem 1.5rem;
+            text-align: center;
+            min-width: 160px;
+        }
+
+        .budget-box.contingency {
+            border-color: var(--yellow);
+        }
+
+        .budget-box.contingency .value {
+            color: var(--yellow);
+        }
+
+        .budget-box.b5-funds {
+            border-color: var(--purple);
+        }
+
+        .budget-box.b5-funds .value {
+            color: var(--purple);
+        }
+
+        .budget-box .label {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 0.5rem;
+        }
+
+        .budget-box .value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--green);
+        }
+
+        /* Vision Note Box */
+        .vision-note {
+            background: rgba(174, 165, 242, 0.1);
+            border-left: 3px solid var(--purple);
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+            border-radius: 0 8px 8px 0;
+            line-height: 1.7;
+        }
+
+        /* Ticket Table */
+        .ticket-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        .ticket-table th,
+        .ticket-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .ticket-table th {
+            color: rgba(255,255,255,0.6);
+            font-weight: normal;
+            font-size: 0.85rem;
+        }
+
+        .ticket-table td:last-child,
+        .ticket-table th:last-child {
+            text-align: right;
+        }
+
+        .ticket-table .category {
+            color: #fff;
+        }
+
+        .ticket-table .price {
+            color: var(--green);
+            font-weight: bold;
+        }
+
+        .ticket-table .allocation {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .footnote {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+            margin-top: 1rem;
+            font-style: italic;
+        }
+
+        .donation-note {
+            background: rgba(229, 132, 162, 0.1);
+            border-left: 3px solid var(--pink);
+            padding: 0.75rem 1rem;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Team Matrix */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 0.75rem;
+            margin: 1rem 0;
+        }
+
+        .bubble {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            transition: transform 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .bubble:hover {
+            transform: translateX(3px);
+        }
+
+        .bubble.ok { border-left: 3px solid var(--green); }
+        .bubble.needs-hands { border-left: 3px solid var(--yellow); }
+        .bubble.critical { border-left: 3px solid var(--red); background: rgba(255, 107, 107, 0.08); }
+
+        .bubble-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .bubble-status { font-size: 1.1rem; }
+        .bubble-info { flex: 1; }
+        .bubble-name { font-weight: bold; font-size: 0.95rem; }
+        .bubble-lead { font-size: 0.8rem; color: rgba(255,255,255,0.6); }
+        .bubble-support {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.6);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.25rem;
+        }
+
+        /* Support Tally */
+        .support-tally {
+            background: rgba(74, 255, 179, 0.1);
+            border: 2px solid var(--green);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            text-align: center;
+            margin-top: 1.5rem;
+            display: inline-block;
+        }
+
+        .support-tally .label {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 0.25rem;
+        }
+
+        .support-tally .value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--green);
+        }
+
+        /* Legend */
+        .legend {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 1.5rem;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            font-size: 0.85rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .legend-dot.ok { background: var(--green); }
+        .legend-dot.needs-hands { background: var(--yellow); }
+        .legend-dot.critical { background: var(--red); }
+
+        /* Timeline */
+        .timeline {
+            margin: 1rem 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-left: 2px solid rgba(255, 255, 255, 0.15);
+            padding-left: 1.25rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -5px;
+            top: 1rem;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: linear-gradient(90deg, var(--pink), var(--purple));
+        }
+
+        .timeline-date {
+            font-weight: bold;
+            min-width: 90px;
+            color: var(--pink);
+            font-size: 0.9rem;
+        }
+
+        .timeline-content {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        /* Invitation Box */
+        .invitation-box {
+            background: linear-gradient(135deg, rgba(229, 132, 162, 0.1), rgba(174, 165, 242, 0.1));
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .invitation-box h2 {
+            margin-top: 0;
+            text-align: center;
+            background: linear-gradient(90deg, var(--pink), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .invitation-items {
+            margin-top: 1rem;
+        }
+
+        .invitation-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .invitation-item .num {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(90deg, var(--pink), var(--purple));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .invitation-item span:last-child {
+            padding-top: 3px;
+        }
+
+        /* Progress Bar with Disco Ball */
+        .progress-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: linear-gradient(to top, rgba(26, 26, 46, 0.98), transparent);
+            z-index: 100;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 12px;
+        }
+
+        .progress-bar.hidden {
+            display: none;
+        }
+
+        .progress-dots {
+            display: flex;
+            gap: calc((90vw - 150px) / 5);
+            align-items: center;
+        }
+
+        .progress-dot {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .progress-dot.active {
+            background: linear-gradient(135deg, var(--pink), var(--purple));
+            border-color: var(--pink);
+            box-shadow: 0 0 15px rgba(229, 132, 162, 0.5);
+        }
+
+        .progress-dot.completed {
+            background: var(--green);
+            border-color: var(--green);
+        }
+
+        .progress-dot:hover {
+            transform: scale(1.1);
+        }
+
+        /* Disco Ball */
+        .disco-ball-container {
+            position: fixed;
+            bottom: 40px;
+            width: 35px;
+            height: 35px;
+            transition: left 0.5s ease-out;
+            z-index: 101;
+            pointer-events: none;
+        }
+
+        .disco-ball-container.hidden {
+            display: none;
+        }
+
+        .disco-gradient {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #E584A2 0%, #AEA5F2 100%);
+            -webkit-mask-image: url('disco2.png');
+            mask-image: url('disco2.png');
+            -webkit-mask-size: contain;
+            mask-size: contain;
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-position: center;
+            mask-position: center;
+            animation: bounce 0.7s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .slide {
+                padding: 1.5rem 1rem;
+            }
+
+            .twin-boxes {
+                grid-template-columns: 1fr;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .budget-header {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .progress-dots {
+                gap: calc((90vw - 150px) / 5);
+            }
+
+            .title-header .date-display {
+                display: block;
+                margin-left: 0;
+                margin-top: 0.5rem;
+            }
+
+            .decoration-tree,
+            .decoration-disco {
+                width: 60px;
+                height: 60px;
+                bottom: 12vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation" id="presentation">
+        <!-- Slide 0: Holding Page (Heart) -->
+        <div class="slide holding-page active" data-slide="0" id="holdingPage" onclick="leaveHoldingPage()">
+            <div class="heart-container">
+                <div class="heart-gradient"></div>
+            </div>
+        </div>
+
+        <!-- Slide 1: Overview -->
+        <div class="slide" data-slide="1">
+            <div class="slide-content">
+                <div class="title-header">
+                    <h1 class="main-title">B6: Whispers of Beginnings</h1>
+                    <span class="date-display">Fri 29 - Sun 31 May, 2026</span>
+                </div>
+
+                <div class="twin-boxes">
+                    <div class="commitment-box" onclick="animateBox(this)">
+                        <h3>Our Commitment</h3>
+                        <p>Protect and nourish the core team</p>
+                        <p>Commit from authenticity: for love, not obligation</p>
+                        <p>Grow at a sustainable pace</p>
+                        <p>Stay connected to the land and each other</p>
+                    </div>
+
+                    <div class="objectives-box">
+                        <h3>Core Objectives</h3>
+                        <p>Onboard Defibrillator: spring board for an epic, full 2027 edition</p>
+                        <p>Welcome new additions to the core crew, support crew and volunteer roles</p>
+                        <p>Maintain a healthy financial buffer for 2027 edition</p>
+                        <p>Rejuvenate and collaborate, whilst respecting our capacities</p>
+                    </div>
+                </div>
+
+                <div class="wip-section">
+                    <h3>[WIP] Crew</h3>
+                    <p><strong>Leads:</strong> Joana & Jica</p>
+                    <p><strong>Core:</strong> Afonso, Ben, Jay, Jo, Lukas, Nick, Si</p>
+                    <p><strong>Support:</strong> Ksenia</p>
+                </div>
+
+                <div class="wip-section">
+                    <h3>[WIP] Scope</h3>
+                    <p>2 night gathering</p>
+                    <p>Kiosk</p>
+                    <p>Camping, Showers, Toilets, Generator, Lighting</p>
+                    <p>1 bar</p>
+                    <p>Valley for music programming</p>
+                    <p>Canopy for alt programming</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Inspiration -->
+        <div class="slide" data-slide="2">
+            <div class="slide-content inspiration-slide">
+                <p class="inspiration-text">
+                    Stop. Think of <span>one thing</span> you envision creating for this edition, throw it in the mixer. Beginnings has been about <span>making creative dreams come true</span>.
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 3: The Beginnings Dream -->
+        <div class="slide" data-slide="3">
+            <div class="slide-content">
+                <h1 class="main-title" style="font-size: 2rem; display: block; text-align: center; margin-bottom: 1rem;">The Beginnings Dream - Paint your 2027</h1>
+
+                <div class="oak-container">
+                    <div class="oak-gradient"></div>
+                </div>
+
+                <div class="dream-points">
+                    <p>1. Whilst we all agree raving lies at the centre of Beginnings since the very beginning, is there any other elements, experiences or parts of the culture that could be elevated for 2027? An example of this, for 2026 edition, we build out the ability to have a massive long table seating 50+ people at a time.</p>
+
+                    <p>2. What does an ideal 2027 look like?</p>
+
+                    <p>3. 2027 target Numbers: 500ppl? Core Crew 10/12/15 ppl? Support Crew (volunteers) 20/30/40/50 ppl?</p>
+
+                    <p>4. Establish a program to include workshops for (1) land/site wellbeing or rejuvenation, (2) creative - designing lights or decorations, (3) art, education, inspiration and/or wellbeing (painting, poetry, dance workshop, leadership workshop) (4) maintaining structures or building something.</p>
+
+                    <p>5. Music programming, Tea Bar, Chill out areas</p>
+
+                    <p>6. Add your ideas here...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Numbers -->
+        <div class="slide" data-slide="4">
+            <div class="slide-content">
+                <h1 class="main-title" style="font-size: 2rem; display: block; text-align: center;">Whispers of Beginnings - 2026 in detail</h1>
+
+                <div class="budget-header">
+                    <div class="budget-box b5-funds">
+                        <div class="label">B5 Funds</div>
+                        <div class="value">€12,000</div>
+                    </div>
+                    <div class="budget-box">
+                        <div class="label">Total Budget</div>
+                        <div>€<input type="text" class="editable-number" id="budgetInput" value="5,000" oninput="updateCalculations()"></div>
+                    </div>
+                    <div class="budget-box">
+                        <div class="label">Attendees</div>
+                        <div class="value"><span id="attendeesDisplay">75</span></div>
+                    </div>
+                </div>
+
+                <div class="vision-note">
+                    Our 2027 Vision should help inform our aims for 2026. I think it is healthy to have numbers to aim for, have targets for team sizes to organise, mouths to feed, etc.<br><br>
+                    We need to do a draft budget on how much this will cost to run. The money we have from B5 is value well spent on this defibrillator edition, but we need to all agree on what we want: a fixed cost or donations with a recommendation.
+                </div>
+
+                <h2>Ticket Allocation & Pricing</h2>
+                <table class="ticket-table">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Allocation</th>
+                            <th>% of Total</th>
+                            <th>Price**</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="category">Core Crew</td>
+                            <td class="allocation"><input type="text" class="editable-small" id="coreCrewInput" value="12" oninput="updateAllocations()"> ppl</td>
+                            <td class="allocation"><span id="coreCrewPct">16.0</span>%</td>
+                            <td class="price">€0</td>
+                        </tr>
+                        <tr>
+                            <td class="category">Support Crew / Key Contributors*</td>
+                            <td class="allocation"><input type="text" class="editable-small" id="supportCrewInput" value="63" oninput="updateAllocations()"> ppl</td>
+                            <td class="allocation"><span id="supportCrewPct">84.0</span>%</td>
+                            <td class="price">TBD</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p class="footnote">* Need to define roles within Support Crew / Key Contributors in more detail.<br>** Do we price this or do we ask for donations with a cost recommendation.</p>
+
+                <div class="donation-note">
+                    <strong>Community Contributions:</strong> Invitation to community to contribute/donate before or on top of tickets if they wish - but this is a bonus and cannot be budgeted for.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Bubble Matrix -->
+        <div class="slide" data-slide="5">
+            <div class="slide-content">
+                <h1 class="main-title" style="font-size: 2.5rem; display: block; text-align: center;">Bubble Matrix</h1>
+                <p style="text-align: center; margin-bottom: 1.5rem; color: rgba(255,255,255,0.7); font-size: 0.9rem; line-height: 1.6;">
+                    The Matrix isn't required for the running of Whispers - 1 group, 1 pull - however this can help us to define our needs for 2027, and give an indication on operational numbers to target for Whispers attendance.
+                </p>
+
+                <div class="team-grid">
+                    <div class="bubble critical">
+                        <div class="bubble-header">
+                            <span class="bubble-status">✗</span>
+                            <div class="bubble-info">
+                                <div class="bubble-name">Food</div>
+                                <div class="bubble-lead" style="color: var(--red);">NO LEAD • Lukas, Nick</div>
+                                <div class="bubble-support">Support: <input type="text" class="editable-small support-input" value="4" oninput="updateSupportTally()"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bubble ok">
+                        <div class="bubble-header">
+                            <span class="bubble-status">✓</span>
+                            <div class="bubble-info">
+                                <div class="bubble-name">Bar</div>
+                                <div class="bubble-lead">Lead: Jay • Jica</div>
+                                <div class="bubble-support">Support: <input type="text" class="editable-small support-input" value="4" oninput="updateSupportTally()"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bubble ok">
+                        <div class="bubble-header">
+                            <span class="bubble-status">✓</span>
+                            <div class="bubble-info">
+                                <div class="bubble-name">Tech</div>
+                                <div class="bubble-lead">Lead: Jo • Si, Jica</div>
+                                <div class="bubble-support">Support: <input type="text" class="editable-small support-input" value="4" oninput="updateSupportTally()"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bubble needs-hands">
+                        <div class="bubble-header">
+                            <span class="bubble-status">⚠</span>
+                            <div class="bubble-info">
+                                <div class="bubble-name">Site</div>
+                                <div class="bubble-lead">Lead: Afonso • Si</div>
+                                <div class="bubble-support">Support: <input type="text" class="editable-small support-input" value="4" oninput="updateSupportTally()"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bubble ok">
+                        <div class="bubble-header">
+                            <span class="bubble-status">✓</span>
+                            <div class="bubble-info">
+                                <div class="bubble-name">Structures</div>
+                                <div class="bubble-lead">Lead: Si • Ben</div>
+                                <div class="bubble-support">Support: <input type="text" class="editable-small support-input" value="4" oninput="updateSupportTally()"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bubble critical">
+                        <div class="bubble-header">
+                            <span class="bubble-status">✗</span>
+                            <div class="bubble-info">
+                                <div class="bubble-name">Visual Arts</div>
+                                <div class="bubble-lead" style="color: var(--red);">NO LEAD • Jica</div>
+                                <div class="bubble-support">Support: <input type="text" class="editable-small support-input" value="4" oninput="updateSupportTally()"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bubble ok">
+                        <div class="bubble-header">
+                            <span class="bubble-status">✓</span>
+                            <div class="bubble-info">
+                                <div class="bubble-name">Programming</div>
+                                <div class="bubble-lead">Lead: Jo • Lukas, Nick</div>
+                                <div class="bubble-support">Support: <input type="text" class="editable-small support-input" value="4" oninput="updateSupportTally()"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bubble ok">
+                        <div class="bubble-header">
+                            <span class="bubble-status">✓</span>
+                            <div class="bubble-info">
+                                <div class="bubble-name">Experiences</div>
+                                <div class="bubble-lead">Lead: Nick • Lukas, Jay</div>
+                                <div class="bubble-support">Support: <input type="text" class="editable-small support-input" value="4" oninput="updateSupportTally()"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bubble needs-hands">
+                        <div class="bubble-header">
+                            <span class="bubble-status">⚠</span>
+                            <div class="bubble-info">
+                                <div class="bubble-name">Onsite Ops</div>
+                                <div class="bubble-lead">Lead: Joana • Jica</div>
+                                <div class="bubble-support">Support: <input type="text" class="editable-small support-input" value="4" oninput="updateSupportTally()"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bubble ok">
+                        <div class="bubble-header">
+                            <span class="bubble-status">✓</span>
+                            <div class="bubble-info">
+                                <div class="bubble-name">Comms</div>
+                                <div class="bubble-lead">Lead: Joana • Nick, Ksenia</div>
+                                <div class="bubble-support">Support: <input type="text" class="editable-small support-input" value="4" oninput="updateSupportTally()"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bubble needs-hands">
+                        <div class="bubble-header">
+                            <span class="bubble-status">⚠</span>
+                            <div class="bubble-info">
+                                <div class="bubble-name">Legal & Insurance</div>
+                                <div class="bubble-lead">Lead: Joana • Afonso</div>
+                                <div class="bubble-support">Support: <input type="text" class="editable-small support-input" value="4" oninput="updateSupportTally()"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bubble needs-hands">
+                        <div class="bubble-header">
+                            <span class="bubble-status">⚠</span>
+                            <div class="bubble-info">
+                                <div class="bubble-name">Sustainability</div>
+                                <div class="bubble-lead">Lead: Jica</div>
+                                <div class="bubble-support">Support: <input type="text" class="editable-small support-input" value="4" oninput="updateSupportTally()"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="footnote">*As if in Onsite mode, we should try to define the amount of support crew (volunteers) we feel like we all need for each bubble.</p>
+
+                <div style="text-align: center;">
+                    <div class="support-tally">
+                        <div class="label">Total Support Crew Needed</div>
+                        <div class="value"><span id="supportTally">48</span> people</div>
+                    </div>
+                </div>
+
+                <div class="legend">
+                    <div class="legend-item"><span class="legend-dot ok"></span> OK</div>
+                    <div class="legend-item"><span class="legend-dot needs-hands"></span> Needs Hands</div>
+                    <div class="legend-item"><span class="legend-dot critical"></span> Critical - No Lead</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Next Steps -->
+        <div class="slide" data-slide="6">
+            <div class="slide-content">
+                <h1 class="main-title" style="font-size: 2.5rem; display: block; text-align: center;">Next Steps</h1>
+
+                <div class="invitation-box">
+                    <h2>Your Turn</h2>
+                    <div class="invitation-items">
+                        <div class="invitation-item">
+                            <span class="num">1</span>
+                            <span>Agree on Whispers numbers & budget</span>
+                        </div>
+                        <div class="invitation-item">
+                            <span class="num">2</span>
+                            <span>Draft the mail out to the community, updating them on 2027 and our invitation for key contributors, etc</span>
+                        </div>
+                        <div class="invitation-item">
+                            <span class="num">3</span>
+                            <span>Organise site visits for Jan / Feb in more detail</span>
+                        </div>
+                        <div class="invitation-item">
+                            <span class="num">4</span>
+                            <span>Define Whispers key objectives and plan in more detail</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>Timeline</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <span class="timeline-date">January</span>
+                        <span class="timeline-content">Budget and Scope agreement (pending lock), Mailer, Initiate site weekends</span>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">Feb & March</span>
+                        <span class="timeline-content">Bubble scope definition by leaders/team, Site visits and onboarding, long-lead bookings and tickets (depending on what is agreed)</span>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">Apr & May</span>
+                        <span class="timeline-content">Site visits, ramp up till: -2 weeks till festival</span>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">May 15</span>
+                        <span class="timeline-content">Flip into Onsite Mode</span>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">May 29-31</span>
+                        <span class="timeline-content" style="color: var(--pink); font-weight: bold;">We gather</span>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">June</span>
+                        <span class="timeline-content">Retrospective and financial closure</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Bar with Disco Ball -->
+        <div class="progress-bar hidden" id="progressBar">
+            <div class="progress-dots">
+                <span class="progress-dot active" data-dot="1"></span>
+                <span class="progress-dot" data-dot="2"></span>
+                <span class="progress-dot" data-dot="3"></span>
+                <span class="progress-dot" data-dot="4"></span>
+                <span class="progress-dot" data-dot="5"></span>
+                <span class="progress-dot" data-dot="6"></span>
+            </div>
+        </div>
+
+        <!-- Disco Ball (bouncing) -->
+        <div class="disco-ball-container hidden" id="discoBall">
+            <div class="disco-gradient"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const totalSlides = 6;
+        let isOnHoldingPage = true;
+
+        function parseNumber(str) {
+            return parseFloat(String(str).replace(/,/g, '')) || 0;
+        }
+
+        function formatNumber(num) {
+            return Math.round(num).toLocaleString();
+        }
+
+        function updateCalculations() {
+            // Simple budget display - no complex calculations needed for Whispers
+        }
+
+        function updateAllocations() {
+            const coreCrew = parseNumber(document.getElementById('coreCrewInput').value);
+            const supportCrew = parseNumber(document.getElementById('supportCrewInput').value);
+            const total = coreCrew + supportCrew;
+
+            // Update attendees display
+            document.getElementById('attendeesDisplay').textContent = total;
+
+            // Update percentages
+            if (total > 0) {
+                document.getElementById('coreCrewPct').textContent = ((coreCrew / total) * 100).toFixed(1);
+                document.getElementById('supportCrewPct').textContent = ((supportCrew / total) * 100).toFixed(1);
+            }
+        }
+
+        function updateSupportTally() {
+            const inputs = document.querySelectorAll('.support-input');
+            let total = 0;
+            inputs.forEach(input => {
+                total += parseNumber(input.value);
+            });
+            document.getElementById('supportTally').textContent = total;
+        }
+
+        function leaveHoldingPage() {
+            if (!isOnHoldingPage) return;
+            isOnHoldingPage = false;
+            currentSlide = 1;
+
+            document.getElementById('holdingPage').classList.add('hidden');
+            document.getElementById('progressBar').classList.remove('hidden');
+            document.getElementById('discoBall').classList.remove('hidden');
+
+            updateSlide();
+            updateDiscoBall();
+        }
+
+        function changeSlide(direction) {
+            if (isOnHoldingPage) {
+                if (direction > 0) {
+                    leaveHoldingPage();
+                }
+                return;
+            }
+
+            currentSlide += direction;
+            if (currentSlide < 1) currentSlide = 1;
+            if (currentSlide > totalSlides) currentSlide = totalSlides;
+            updateSlide();
+            updateDiscoBall();
+        }
+
+        function goToSlide(slideNum) {
+            if (isOnHoldingPage) return;
+            currentSlide = slideNum;
+            updateSlide();
+            updateDiscoBall();
+        }
+
+        function updateSlide() {
+            document.querySelectorAll('.slide').forEach(slide => {
+                slide.classList.remove('active');
+            });
+            document.querySelector(`[data-slide="${currentSlide}"]`).classList.add('active');
+
+            document.querySelectorAll('.progress-dot').forEach((dot, index) => {
+                dot.classList.remove('active', 'completed');
+                if (index + 1 === currentSlide) {
+                    dot.classList.add('active');
+                } else if (index + 1 < currentSlide) {
+                    dot.classList.add('completed');
+                }
+            });
+        }
+
+        function updateDiscoBall() {
+            const discoBall = document.getElementById('discoBall');
+            const dots = document.querySelectorAll('.progress-dot');
+            const activeDot = dots[currentSlide - 1];
+
+            if (activeDot) {
+                const rect = activeDot.getBoundingClientRect();
+                const ballWidth = 35;
+                discoBall.style.left = (rect.left + rect.width / 2 - ballWidth / 2) + 'px';
+            }
+        }
+
+        function animateBox(element) {
+            element.classList.remove('animating');
+            void element.offsetWidth;
+            element.classList.add('animating');
+            setTimeout(() => element.classList.remove('animating'), 3000);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'INPUT') return;
+
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                changeSlide(1);
+            }
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                changeSlide(-1);
+            }
+        });
+
+        // Click on progress dots
+        document.querySelectorAll('.progress-dot').forEach(dot => {
+            dot.addEventListener('click', () => {
+                goToSlide(parseInt(dot.dataset.dot));
+            });
+        });
+
+        // Handle window resize for disco ball position
+        window.addEventListener('resize', () => {
+            if (!isOnHoldingPage) {
+                updateDiscoBall();
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateAllocations();
+            updateSupportTally();
+        });
+
+        window.addEventListener('load', () => {
+            if (!isOnHoldingPage) {
+                updateDiscoBall();
+            }
+        });
+    </script>
+</body>
+</html>
