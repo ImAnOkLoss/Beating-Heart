@@ -104,8 +104,8 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(135deg, #E584A2 0%, #AEA5F2 100%);
-            -webkit-mask-image: url('heart.png');
-            mask-image: url('heart.png');
+            -webkit-mask-image: url('../heart.png');
+            mask-image: url('../heart.png');
             -webkit-mask-size: contain;
             mask-size: contain;
             -webkit-mask-repeat: no-repeat;
@@ -125,8 +125,8 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(135deg, #E584A2 0%, #AEA5F2 100%);
-            -webkit-mask-image: url('oak.png');
-            mask-image: url('oak.png');
+            -webkit-mask-image: url('../oak.png');
+            mask-image: url('../oak.png');
             -webkit-mask-size: contain;
             mask-size: contain;
             -webkit-mask-repeat: no-repeat;
@@ -143,6 +143,15 @@
 
         .main-title {
             font-size: clamp(2.5rem, 7vw, 4rem);
+            display: inline;
+            background: linear-gradient(90deg, var(--pink), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .main-title-small {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
             display: inline;
             background: linear-gradient(90deg, var(--pink), var(--purple));
             -webkit-background-clip: text;
@@ -255,16 +264,17 @@
             font-size: 0.9rem;
         }
 
-        /* Simple Section (no border, stacked) */
+        /* Simple Section (no border, centered - like original Beating Heart) */
         .simple-section {
             margin: 1.25rem 0;
             text-align: center;
         }
 
         .simple-section h3 {
-            color: #fff;
+            color: rgba(255, 255, 255, 0.5);
             margin: 0 0 0.5rem;
-            font-size: 1.1rem;
+            font-size: 0.9rem;
+            font-weight: normal;
         }
 
         .simple-section p {
@@ -274,27 +284,31 @@
             line-height: 1.6;
         }
 
-        /* WIP Section styling */
-        .wip-section {
-            margin: 1.25rem 0;
-            text-align: left;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 12px;
-            padding: 1rem 1.5rem;
+        /* Mini ball bullet list for scope */
+        .scope-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
         }
 
-        .wip-section h3 {
-            color: rgba(255, 255, 255, 0.5);
-            margin: 0 0 0.75rem;
-            font-size: 0.9rem;
-            font-weight: normal;
-        }
-
-        .wip-section p {
+        .scope-list li {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin: 0.5rem 0;
             color: rgba(255, 255, 255, 0.85);
-            margin: 0.3rem 0;
             font-size: 0.95rem;
-            line-height: 1.6;
+        }
+
+        .mini-ball {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--pink), var(--purple));
+            box-shadow: 0 0 6px rgba(229, 132, 162, 0.4);
+            flex-shrink: 0;
         }
 
         /* Editable Input */
@@ -314,7 +328,7 @@
             border-bottom-style: solid;
         }
 
-        /* Small editable input for tables/bubbles */
+        /* Small editable input for tables/bubbles - narrower */
         .editable-small {
             background: transparent;
             border: none;
@@ -322,7 +336,7 @@
             color: var(--green);
             font-size: 1rem;
             font-weight: bold;
-            width: 50px;
+            width: 36px;
             text-align: center;
             outline: none;
         }
@@ -357,24 +371,58 @@
             font-weight: bold;
         }
 
-        /* Dream Points List */
+        /* Dream Points List with 3D bubble question marks */
         .dream-points {
             text-align: left;
             max-width: 800px;
             margin: 0 auto;
         }
 
-        .dream-points p {
+        .dream-point {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
             margin: 1.25rem 0;
-            padding-left: 1rem;
-            border-left: 3px solid var(--purple);
             line-height: 1.7;
+        }
+
+        .question-bubble {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(174, 165, 242, 0.3) 0%, rgba(229, 132, 162, 0.3) 100%);
+            border: 2px solid rgba(174, 165, 242, 0.5);
+            box-shadow:
+                0 4px 8px rgba(0, 0, 0, 0.3),
+                inset 0 2px 4px rgba(255, 255, 255, 0.2),
+                inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1rem;
+            font-weight: bold;
+            color: var(--purple);
+        }
+
+        .dream-point p {
+            margin: 0;
+            padding-top: 4px;
+        }
+
+        /* Vision intro text */
+        .vision-intro {
+            text-align: center;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.5rem;
+            font-style: italic;
         }
 
         /* Numbers Page */
         .budget-header {
             display: flex;
-            gap: 1.5rem;
+            gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
             margin: 1.5rem 0;
@@ -384,9 +432,9 @@
             background: rgba(255, 255, 255, 0.05);
             border: 2px solid var(--green);
             border-radius: 16px;
-            padding: 1.25rem 1.5rem;
+            padding: 1rem 1.25rem;
             text-align: center;
-            min-width: 160px;
+            min-width: 140px;
         }
 
         .budget-box.contingency {
@@ -406,24 +454,24 @@
         }
 
         .budget-box .label {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: rgba(255,255,255,0.6);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
         }
 
         .budget-box .value {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: bold;
             color: var(--green);
         }
 
-        /* Vision Note Box */
-        .vision-note {
-            background: rgba(174, 165, 242, 0.1);
-            border-left: 3px solid var(--purple);
-            padding: 1rem 1.25rem;
+        /* Budget note box */
+        .budget-note {
+            background: rgba(229, 132, 162, 0.1);
+            border-left: 3px solid var(--pink);
+            padding: 0.75rem 1rem;
             margin: 1.5rem 0;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             border-radius: 0 8px 8px 0;
             line-height: 1.7;
         }
@@ -530,21 +578,15 @@
             margin-top: 0.25rem;
         }
 
-        /* Support Tally */
+        /* Support Tally - smaller */
         .support-tally {
             background: rgba(74, 255, 179, 0.1);
             border: 2px solid var(--green);
             border-radius: 12px;
-            padding: 1rem 1.5rem;
+            padding: 0.75rem 1.25rem;
             text-align: center;
             margin-top: 1.5rem;
             display: inline-block;
-        }
-
-        .support-tally .label {
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.6);
-            margin-bottom: 0.25rem;
         }
 
         .support-tally .value {
@@ -619,8 +661,8 @@
             font-size: 0.9rem;
         }
 
-        /* Invitation Box */
-        .invitation-box {
+        /* Action Items Box (no "Your Turn" heading) */
+        .action-box {
             background: linear-gradient(135deg, rgba(229, 132, 162, 0.1), rgba(174, 165, 242, 0.1));
             border: 1px solid rgba(255,255,255,0.15);
             border-radius: 16px;
@@ -630,27 +672,18 @@
             text-align: left;
         }
 
-        .invitation-box h2 {
-            margin-top: 0;
-            text-align: center;
-            background: linear-gradient(90deg, var(--pink), var(--purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .action-items {
+            margin: 0;
         }
 
-        .invitation-items {
-            margin-top: 1rem;
-        }
-
-        .invitation-item {
+        .action-item {
             display: flex;
             align-items: flex-start;
             gap: 0.75rem;
             margin-bottom: 0.75rem;
         }
 
-        .invitation-item .num {
+        .action-item .num {
             width: 28px;
             height: 28px;
             background: linear-gradient(90deg, var(--pink), var(--purple));
@@ -663,7 +696,7 @@
             flex-shrink: 0;
         }
 
-        .invitation-item span:last-child {
+        .action-item span:last-child {
             padding-top: 3px;
         }
 
@@ -736,8 +769,8 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(135deg, #E584A2 0%, #AEA5F2 100%);
-            -webkit-mask-image: url('disco2.png');
-            mask-image: url('disco2.png');
+            -webkit-mask-image: url('../disco2.png');
+            mask-image: url('../disco2.png');
             -webkit-mask-size: contain;
             mask-size: contain;
             -webkit-mask-repeat: no-repeat;
@@ -784,13 +817,6 @@
                 margin-left: 0;
                 margin-top: 0.5rem;
             }
-
-            .decoration-tree,
-            .decoration-disco {
-                width: 60px;
-                height: 60px;
-                bottom: 12vh;
-            }
         }
     </style>
 </head>
@@ -807,7 +833,7 @@
         <div class="slide" data-slide="1">
             <div class="slide-content">
                 <div class="title-header">
-                    <h1 class="main-title">B6: Whispers of Beginnings</h1>
+                    <h1 class="main-title-small">B6: Whispers of Beginnings</h1>
                     <span class="date-display">Fri 29 - Sun 31 May, 2026</span>
                 </div>
 
@@ -822,28 +848,30 @@
 
                     <div class="objectives-box">
                         <h3>Core Objectives</h3>
-                        <p>Onboard Defibrillator: spring board for an epic, full 2027 edition</p>
-                        <p>Welcome new additions to the core crew, support crew and volunteer roles</p>
+                        <p>Defibrillator: spring board for an epic, full 2027 edition</p>
+                        <p>Welcome new additions to the core crew & support crew</p>
                         <p>Maintain a healthy financial buffer for 2027 edition</p>
                         <p>Rejuvenate and collaborate, whilst respecting our capacities</p>
                     </div>
                 </div>
 
-                <div class="wip-section">
+                <div class="simple-section">
                     <h3>[WIP] Crew</h3>
                     <p><strong>Leads:</strong> Joana & Jica</p>
                     <p><strong>Core:</strong> Afonso, Ben, Jay, Jo, Lukas, Nick, Si</p>
                     <p><strong>Support:</strong> Ksenia</p>
                 </div>
 
-                <div class="wip-section">
+                <div class="simple-section">
                     <h3>[WIP] Scope</h3>
-                    <p>2 night gathering</p>
-                    <p>Kiosk</p>
-                    <p>Camping, Showers, Toilets, Generator, Lighting</p>
-                    <p>1 bar</p>
-                    <p>Valley for music programming</p>
-                    <p>Canopy for alt programming</p>
+                    <ul class="scope-list">
+                        <li><span class="mini-ball"></span> 2 night gathering</li>
+                        <li><span class="mini-ball"></span> Kiosk</li>
+                        <li><span class="mini-ball"></span> Camping, Showers, Toilets, Generator, Lighting</li>
+                        <li><span class="mini-ball"></span> 1 bar</li>
+                        <li><span class="mini-ball"></span> Valley for music programming</li>
+                        <li><span class="mini-ball"></span> Canopy for alt programming</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -867,17 +895,35 @@
                 </div>
 
                 <div class="dream-points">
-                    <p>1. Whilst we all agree raving lies at the centre of Beginnings since the very beginning, is there any other elements, experiences or parts of the culture that could be elevated for 2027? An example of this, for 2026 edition, we build out the ability to have a massive long table seating 50+ people at a time.</p>
+                    <div class="dream-point">
+                        <div class="question-bubble">?</div>
+                        <p>1. Whilst we all agree raving lies at the centre of Beginnings since the very beginning, is there any other elements, experiences or parts of the culture that could be elevated for 2027? An example of this, for 2026 edition, we build out the ability to have a massive long table seating 50+ people at a time.</p>
+                    </div>
 
-                    <p>2. What does an ideal 2027 look like?</p>
+                    <div class="dream-point">
+                        <div class="question-bubble">?</div>
+                        <p>2. What does an ideal 2027 look like?</p>
+                    </div>
 
-                    <p>3. 2027 target Numbers: 500ppl? Core Crew 10/12/15 ppl? Support Crew (volunteers) 20/30/40/50 ppl?</p>
+                    <div class="dream-point">
+                        <div class="question-bubble">?</div>
+                        <p>3. 2027 target Numbers: 500ppl? Core Crew 10/12/15 ppl? Support Crew (volunteers) 20/30/40/50 ppl?</p>
+                    </div>
 
-                    <p>4. Establish a program to include workshops for (1) land/site wellbeing or rejuvenation, (2) creative - designing lights or decorations, (3) art, education, inspiration and/or wellbeing (painting, poetry, dance workshop, leadership workshop) (4) maintaining structures or building something.</p>
+                    <div class="dream-point">
+                        <div class="question-bubble">?</div>
+                        <p>4. Establish a program to include workshops for (1) land/site wellbeing or rejuvenation, (2) creative - designing lights or decorations, (3) art, education, inspiration and/or wellbeing (painting, poetry, dance workshop, leadership workshop) (4) maintaining structures or building something.</p>
+                    </div>
 
-                    <p>5. Music programming, Tea Bar, Chill out areas</p>
+                    <div class="dream-point">
+                        <div class="question-bubble">?</div>
+                        <p>5. Music programming, Tea Bar, Chill out areas</p>
+                    </div>
 
-                    <p>6. Add your ideas here...</p>
+                    <div class="dream-point">
+                        <div class="question-bubble">?</div>
+                        <p>6. Add your ideas here...</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -886,6 +932,8 @@
         <div class="slide" data-slide="4">
             <div class="slide-content">
                 <h1 class="main-title" style="font-size: 2rem; display: block; text-align: center;">Whispers of Beginnings - 2026 in detail</h1>
+
+                <p class="vision-intro">Our 2027 Vision should help inform our aims for 2026. I think it is healthy to have numbers to aim for, have targets for team sizes to organise, mouths to feed, etc.</p>
 
                 <div class="budget-header">
                     <div class="budget-box b5-funds">
@@ -900,11 +948,18 @@
                         <div class="label">Attendees</div>
                         <div class="value"><span id="attendeesDisplay">75</span></div>
                     </div>
+                    <div class="budget-box">
+                        <div class="label">Target Revenue (90%)</div>
+                        <div class="value">€<span id="revenueDisplay">4,500</span></div>
+                    </div>
+                    <div class="budget-box contingency">
+                        <div class="label">Contingency (10%)</div>
+                        <div class="value">€<span id="contingencyDisplay">500</span></div>
+                    </div>
                 </div>
 
-                <div class="vision-note">
-                    Our 2027 Vision should help inform our aims for 2026. I think it is healthy to have numbers to aim for, have targets for team sizes to organise, mouths to feed, etc.<br><br>
-                    We need to do a draft budget on how much this will cost to run. The money we have from B5 is value well spent on this defibrillator edition, but we need to all agree on what we want: a fixed cost or donations with a recommendation.
+                <div class="budget-note">
+                    <strong>Budget:</strong> We need to do a draft budget on how much this will cost to run. The money we have from B5 is value well spent on this defibrillator edition, but we need to all agree on what we want: a fixed cost or donations with a recommendation.
                 </div>
 
                 <h2>Ticket Allocation & Pricing</h2>
@@ -928,7 +983,7 @@
                             <td class="category">Support Crew / Key Contributors*</td>
                             <td class="allocation"><input type="text" class="editable-small" id="supportCrewInput" value="63" oninput="updateAllocations()"> ppl</td>
                             <td class="allocation"><span id="supportCrewPct">84.0</span>%</td>
-                            <td class="price">TBD</td>
+                            <td class="price">€<span id="supportCrewPrice">71</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -1076,8 +1131,7 @@
 
                 <div style="text-align: center;">
                     <div class="support-tally">
-                        <div class="label">Total Support Crew Needed</div>
-                        <div class="value"><span id="supportTally">48</span> people</div>
+                        <div class="value"><span id="supportTally">48</span></div>
                     </div>
                 </div>
 
@@ -1094,22 +1148,21 @@
             <div class="slide-content">
                 <h1 class="main-title" style="font-size: 2.5rem; display: block; text-align: center;">Next Steps</h1>
 
-                <div class="invitation-box">
-                    <h2>Your Turn</h2>
-                    <div class="invitation-items">
-                        <div class="invitation-item">
+                <div class="action-box">
+                    <div class="action-items">
+                        <div class="action-item">
                             <span class="num">1</span>
                             <span>Agree on Whispers numbers & budget</span>
                         </div>
-                        <div class="invitation-item">
+                        <div class="action-item">
                             <span class="num">2</span>
                             <span>Draft the mail out to the community, updating them on 2027 and our invitation for key contributors, etc</span>
                         </div>
-                        <div class="invitation-item">
+                        <div class="action-item">
                             <span class="num">3</span>
                             <span>Organise site visits for Jan / Feb in more detail</span>
                         </div>
-                        <div class="invitation-item">
+                        <div class="action-item">
                             <span class="num">4</span>
                             <span>Define Whispers key objectives and plan in more detail</span>
                         </div>
@@ -1178,13 +1231,23 @@
         }
 
         function updateCalculations() {
-            // Simple budget display - no complex calculations needed for Whispers
+            const budget = parseNumber(document.getElementById('budgetInput').value);
+            const targetRevenue = budget * 0.9;
+            const contingency = budget * 0.1;
+
+            document.getElementById('revenueDisplay').textContent = formatNumber(targetRevenue);
+            document.getElementById('contingencyDisplay').textContent = formatNumber(contingency);
+
+            // Also update support crew price based on target revenue
+            updateAllocations();
         }
 
         function updateAllocations() {
             const coreCrew = parseNumber(document.getElementById('coreCrewInput').value);
             const supportCrew = parseNumber(document.getElementById('supportCrewInput').value);
             const total = coreCrew + supportCrew;
+            const budget = parseNumber(document.getElementById('budgetInput').value);
+            const targetRevenue = budget * 0.9;
 
             // Update attendees display
             document.getElementById('attendeesDisplay').textContent = total;
@@ -1193,6 +1256,12 @@
             if (total > 0) {
                 document.getElementById('coreCrewPct').textContent = ((coreCrew / total) * 100).toFixed(1);
                 document.getElementById('supportCrewPct').textContent = ((supportCrew / total) * 100).toFixed(1);
+            }
+
+            // Calculate price per support crew member to meet target revenue
+            if (supportCrew > 0) {
+                const pricePerPerson = Math.round(targetRevenue / supportCrew);
+                document.getElementById('supportCrewPrice').textContent = pricePerPerson;
             }
         }
 
@@ -1305,7 +1374,7 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
-            updateAllocations();
+            updateCalculations();
             updateSupportTally();
         });
 
